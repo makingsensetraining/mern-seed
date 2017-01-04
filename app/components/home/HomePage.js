@@ -9,7 +9,7 @@ class HomePage extends React.Component {
         return (
             <div className="jumbotron">
                 <h1>MERN seed App</h1>
-                <p>MongoDB, ExpressJS, React, Node using Redux in ES6 for ultra-respositve webapps.</p>
+                <p>MongoDB, ExpressJS, React, Node using Redux in ES6 for ultra-responsive webapps.</p>
             </div>
         );
     }

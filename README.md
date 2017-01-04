@@ -2,6 +2,15 @@
   
 The start point to rock with ReactJS and NodeJS.
 
+## Installation/Execution
+
+### Installing and Running the Project
+To install please execute: 
+`npm install` over the root of the project
+
+To execute:
+`npm start -s` this will start the project doing all the tasks (lint, tests, etc, and also keeping the watcher active)
+
 ## Tech Stack
 
 ### Backend
@@ -27,15 +36,3 @@ The start point to rock with ReactJS and NodeJS.
 ### UI Libraries
 - Bootstrap
 - Toastr
-
-## Installation/Execution
-
-### Installing Project
-To install please execute: 
-`npm install` over the root of the project
-
-To execute:
-`npm start -s` this will start the project doing all the tasks (lint, tests, etc, and also keeping the watcher active)
-
-To execute for production mode (distribution)
-`npm build`

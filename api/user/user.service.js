@@ -7,7 +7,7 @@ const users = [];
 class UserService {
     constructor() {
         let nextId = 1;
-        while (nextId <= 100) {
+        while (nextId <= 10) {
             users.push({
                 id: nextId,
                 name: 'User Name ' + nextId,

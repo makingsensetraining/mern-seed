@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as usersActions from '../../actions/userActions';
+import UserList from './UserList';
 
 class UsersPage extends React.Component {
     constructor(props, context) {
@@ -11,19 +12,21 @@ class UsersPage extends React.Component {
     render() {
         return (
             <div>
-                Users list.
+                <UserList users={this.props.users}/>
             </div>
         );
     }
 }
 
 UsersPage.propTypes = {
-    //
+    actions: PropTypes.object,
+    users: PropTypes.array.isRequired
 };
 
 function mapStatesToProps(state, ownProps) {
     return {
         state: state,
+        users: state.userData.users
     };
 }
 
