@@ -11,7 +11,7 @@ export function loadUsers(){
 
         return fetch(endpoints.GET_USERS)
             .then(response => response.json())
-            .then(response => dispatch(loadUserSuccess(response.users)))
+            .then(data => dispatch(loadUserSuccess(data)))
             .catch(error => {
                 throw(error);
             });
