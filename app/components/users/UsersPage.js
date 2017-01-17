@@ -3,16 +3,50 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as usersActions from '../../actions/userActions';
 import UserList from './UserList';
+import Modal from  '../common/Modal';
+import toastr from 'toastr';
 
 class UsersPage extends React.Component {
     constructor(props, context) {
         super(props, context);
+
+        this.state = {
+            user: Object.assign({}, props.user)
+        };
+
+        //Mapping functions
+        this.onClickUserDetail = this.onClickUserDetail.bind(this);
+    }
+
+    componentWillReceiveProps(nextProps){
+        this.setState({
+            user: nextProps.state.user
+        });
+    }
+
+    onClickUserDetail(event){
+        event.preventDefault();
+
+        this.props.actions.getUser(event.target.id)
+            .then(() => {
+                this.modal.open();
+            })
+            .catch(() => {
+                toastr.error('The selected user does not exist.');
+            });
     }
 
     render() {
         return (
             <div>
-                <UserList users={this.props.users}/>
+                <UserList
+                    users={this.props.users}
+                    onClick={this.onClickUserDetail}/>
+
+                <Modal
+                    title="User Info "
+                    body={this.state.user.createdAt}
+                    ref={(child) => { this.modal = child; }} />
             </div>
         );
     }
@@ -24,9 +58,17 @@ UsersPage.propTypes = {
 };
 
 function mapStatesToProps(state, ownProps) {
+    let user = {
+        id: 0,
+        name: '',
+        email: '',
+        createdAt: ''
+    };
+
     return {
         state: state,
-        users: state.userData.users
+        users: state.userData.users,
+        user: user
     };
 }
 
