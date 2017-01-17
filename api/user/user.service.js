@@ -23,6 +23,13 @@ class UserService {
 
         return cb(null, returnUsers)
     }
+
+    findById(id, cb) {
+
+        const user = users.find(user => user.id == id);
+
+        return cb(null, user)
+    }
 }
 
 export default new UserService();
