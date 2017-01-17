@@ -54,7 +54,8 @@ class UsersPage extends React.Component {
 
 UsersPage.propTypes = {
     actions: PropTypes.object,
-    users: PropTypes.array.isRequired
+    users: PropTypes.array.isRequired,
+    user: PropTypes.object.isRequired
 };
 
 function mapStatesToProps(state, ownProps) {
