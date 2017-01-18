@@ -14,3 +14,13 @@ export const userData = (state = initialState, action) => {
             return state;
     }
 };
+
+export const user = (state = initialState.user, action) => {
+    switch (action.type){
+        case types.GET_USER_SUCCESS:
+            return action.user;
+
+        default:
+            return state;
+    }
+};

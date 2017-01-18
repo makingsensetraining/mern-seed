@@ -50,7 +50,7 @@ Modal.defaultProps = {
 Modal.propTypes = {
     size: PropTypes.string,
     title: PropTypes.string.isRequired,
-    body: PropTypes.string.isRequired,
+    body: PropTypes.string,
     footer: PropTypes.string
 };
 
