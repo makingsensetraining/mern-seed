@@ -16,6 +16,8 @@ class UsersPage extends React.Component {
 
         //Mapping functions
         this.onClickUserDetail = this.onClickUserDetail.bind(this);
+
+        props.actions.loadUsers();
     }
 
     componentWillReceiveProps(nextProps){
@@ -44,7 +46,7 @@ class UsersPage extends React.Component {
                     onClick={this.onClickUserDetail}/>
 
                 <Modal
-                    title="User Info "
+                    title="User Info"
                     body={this.state.user.createdAt}
                     ref={(child) => { this.modal = child; }} />
             </div>
