@@ -6,7 +6,7 @@ import UserList from './UserList';
 import Modal from  '../common/Modal';
 import toastr from 'toastr';
 
-class UsersPage extends React.Component {
+export class UsersPage extends React.Component {
     constructor(props, context) {
         super(props, context);
 
@@ -41,6 +41,7 @@ class UsersPage extends React.Component {
     render() {
         return (
             <div>
+                <h1>Users List</h1>
                 <UserList
                     users={this.props.users}
                     onClick={this.onClickUserDetail}/>
