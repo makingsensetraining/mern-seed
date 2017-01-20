@@ -13,7 +13,8 @@ export function getUserSuccess(user){
 export function loadUsers(){
     return dispatch => {
 
-        return fetch(endpoints.GET_USERS)
+        const baseUrl = 'http://localhost:3000'; //ToDo: check a better way
+        return fetch(baseUrl + endpoints.GET_USERS)
             .then(response => response.json())
             .then(data => dispatch(loadUserSuccess(data)))
             .catch(error => {
@@ -24,7 +25,8 @@ export function loadUsers(){
 
 export function getUser(id){
     return (dispatch, getState) => {
-        const url = endpoints.GET_USER + `/${id}`;
+        const baseUrl = 'http://localhost:3000'; //ToDo: check a better way
+        const url = baseUrl + endpoints.GET_USER + `/${id}`;
 
         return fetch(url)
             .then(response => response.json())
