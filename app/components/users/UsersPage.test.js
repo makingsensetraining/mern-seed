@@ -1,6 +1,6 @@
 import React from 'react';
 import expect from 'expect';
-import {mount, shallow} from 'enzyme';
+import {mount} from 'enzyme';
 import {UsersPage} from './UsersPage'; //Using the undecorated component (In order to be able to test the component itself without having to deal with the decorator)
 
 function setup() {
@@ -16,6 +16,12 @@ function setup() {
                 name: 'Test User 1',
                 email: 'testinguser@makingsense.com',
                 createdAt: '2017-01-20'
+            },
+            {
+                id: 2,
+                name: 'Test User 2',
+                email: 'testinguser2@makingsense.com',
+                createdAt: '2017-01-21'
             }
         ],
         user: {
@@ -26,25 +32,18 @@ function setup() {
         }
     };
 
-    return shallow(<UsersPage {...props} />);
+    return mount(<UsersPage {...props} />);
 }
 
 describe('Users Page', () => {
 
-    it('show a modal when clicking on some user', () => {
+    it('Basic subcomponents rendering & count', () => {
 
         const wrapper = setup();
 
-        expect(wrapper.find('h1').text()).toEqual('Users List');
-
-        //ToDo: continue here the test
-
-        // console.log(wrapper.find(''));
-
-        //actions??
-        //const saveButton = wrapper.find('input').last();
-        //expect(saveButton.prop('type')).toBe('submit');
-        //saveButton.simulate('click');
-        //expect(wrapper.state().errors.title).toBe('Title must be at least 5 characters.');
+        expect(wrapper.find('h1').text()).toEqual('Users List'); //The h1 text should be Users List
+        expect(wrapper.find('UserList').length).toEqual(1); //There has to be one UserList component.
+        expect(wrapper.find('Modal').length).toEqual(1); //There has to be one Modal component.
+        expect(wrapper.find('User').length).toEqual(2); //There has to be one User component.
     });
 });
