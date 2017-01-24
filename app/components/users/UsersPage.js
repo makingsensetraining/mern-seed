@@ -71,7 +71,7 @@ function mapStatesToProps(state, ownProps) {
 
     return {
         state: state,
-        users: state.userData.users,
+        users: state.users.users,
         user: user
     };
 }

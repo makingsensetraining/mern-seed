@@ -7,7 +7,7 @@ import * as userActions from '../actions/userActions';
 describe('Store', () => {
     it('Should handle loading users', () => {
         //arrange
-        const store = createStore(rootReducer, initialState.users);
+        const store = createStore(rootReducer, initialState);
 
         const users = [
             {
@@ -35,10 +35,9 @@ describe('Store', () => {
         store.dispatch(action);
 
         //assert
-        const actual = store.getState().userData.users;
-
-        // let expected = users;
+        const actual = store.getState().users.users;
 
         expect(actual).toEqual(users);
+        expect(actual.length).toEqual(3);
     });
 });

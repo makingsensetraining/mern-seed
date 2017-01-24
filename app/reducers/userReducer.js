@@ -1,7 +1,7 @@
 import * as types from '../actions/actionTypes';
 import initialState from './initialState';
 
-export const userData = (state = initialState, action) => {
+export const users = (state = initialState, action) => {
     switch (action.type){
         case types.LOAD_USER_SUCCESS:
             return Object.assign({}, state,

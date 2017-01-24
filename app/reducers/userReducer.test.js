@@ -1,5 +1,5 @@
 import expect from 'expect';
-import {userData, user} from './userReducer';
+import {users, user} from './userReducer';
 import * as actions from '../actions/userActions';
 
 describe('User Reducer', () => {
@@ -25,7 +25,7 @@ describe('User Reducer', () => {
         const action = actions.loadUserSuccess(usersParam);
 
         //act
-        const newState = userData(initialStateUserData, action);
+        const newState = users(initialStateUserData, action);
 
         //assert
         expect(newState.users.length).toEqual(2);
