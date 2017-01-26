@@ -6,7 +6,7 @@ import UserList from './UserList';
 import Modal from  '../common/Modal';
 import toastr from 'toastr';
 
-class UsersPage extends React.Component {
+export class UsersPage extends React.Component {
     constructor(props, context) {
         super(props, context);
 
@@ -16,6 +16,8 @@ class UsersPage extends React.Component {
 
         //Mapping functions
         this.onClickUserDetail = this.onClickUserDetail.bind(this);
+
+        props.actions.loadUsers();
     }
 
     componentWillReceiveProps(nextProps){
@@ -39,12 +41,13 @@ class UsersPage extends React.Component {
     render() {
         return (
             <div>
+                <h1>Users List</h1>
                 <UserList
                     users={this.props.users}
                     onClick={this.onClickUserDetail}/>
 
                 <Modal
-                    title="User Info "
+                    title="User Info"
                     body={this.state.user.createdAt}
                     ref={(child) => { this.modal = child; }} />
             </div>
@@ -68,7 +71,7 @@ function mapStatesToProps(state, ownProps) {
 
     return {
         state: state,
-        users: state.userData.users,
+        users: state.users.users,
         user: user
     };
 }

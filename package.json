@@ -6,7 +6,7 @@
     "open:src": "babel-watch api/server.js",
     "lint": "node_modules/.bin/esw webpack.config.* app tools",
     "lint:watch": "npm run lint -- --watch",
-    "test": "mocha --reporter spec tests/testSetup.js \"tests/*.test.js\"",
+    "test": "mocha --reporter spec tests/testSetup.js \"app/**/*.test.js\"",
     "test:watch": "npm run test -- --watch"
   },
   "devDependencies": {
