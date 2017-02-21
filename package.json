@@ -1,11 +1,38 @@
 {
   "name": "mern-seed",
   "license": "MIT",
+  "description": "The start point to rock with ReactJS and NodeJS.",
+  "homepage": "http://makingsense.com",
+  "keywords": [
+    "react",
+    "redux",
+    "node",
+    "sass"
+  ],
+  "author": "Making Sense's FE/BE/UX Development team <hello@makingsense.com>",
+  "contributors": [
+    {
+      "name": "Juan Pablo Cook",
+      "email": "jcook@makingsense.com"
+    },
+    {
+      "name": "Mariano Ravinale",
+      "email": "mravinale@makingsense.com"
+    },
+    {
+      "name": "Franco Arza",
+      "email": "farza@makingsense.com"
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/MakingSense/mern-seed.git"
   },
   "version": "1.0.0",
+  "engines": {
+    "node": ">=6.9.1",
+    "npm": ">=3.10.9"
+  },
   "scripts": {
     "start": "npm-run-all --parallel open:src lint:watch test:watch ux:watch",
     "open:src": "babel-watch api/server.js",
