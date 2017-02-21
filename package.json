@@ -6,9 +6,10 @@
   "keywords": [
     "react",
     "redux",
-    "node"
+    "node",
+    "sass"
   ],
-  "author": "Making Sense's FE/BE/UI Development team <hello@makingsense.com>",
+  "author": "Making Sense's FE/BE/UX Development team <hello@makingsense.com>",
   "contributors": [
     {
       "name": "Juan Pablo Cook",
