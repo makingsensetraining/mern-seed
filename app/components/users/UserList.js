@@ -10,9 +10,7 @@ const UserList = ({users, onClick}) => {
                     id={user.id}
                     name={user.name}
                     email={user.email}
-                    createdAt={user.createdAt}
-                    onClick={onClick}
-                />
+                    onClick={onClick} />
         );
     }
     return (
