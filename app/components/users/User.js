@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 
-const User = ({id, name, email, createdAt, onClick}) => {
+const User = ({id, name, email, onClick}) => {
     return (
         <div className="panel panel-info">
             <div className="panel-heading">
@@ -19,7 +19,6 @@ User.propTypes = {
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
-    createdAt: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired
 };
 

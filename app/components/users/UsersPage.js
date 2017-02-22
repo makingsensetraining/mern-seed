@@ -22,7 +22,7 @@ export class UsersPage extends React.Component {
 
     componentWillReceiveProps(nextProps){
         this.setState({
-            user: nextProps.state.user
+            user: nextProps.user
         });
     }
 
@@ -62,17 +62,11 @@ UsersPage.propTypes = {
 };
 
 function mapStatesToProps(state, ownProps) {
-    let user = {
-        id: 0,
-        name: '',
-        email: '',
-        createdAt: ''
-    };
 
     return {
         state: state,
         users: state.users.users,
-        user: user
+        user: state.user
     };
 }
 
