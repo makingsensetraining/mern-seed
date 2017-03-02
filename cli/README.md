@@ -3,25 +3,33 @@
 
 ## Installation
 
-First, install [Yeoman](http://yeoman.io) and generator-mern using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
+First, install [Yeoman](http://yeoman.io) using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
 
 ```bash
 npm install -g yo
-npm install -g generator-mern
 ```
 
-Then generate your new project:
+Then link the generator-mern because is not available as global npm module. On the command line, from the root of your generator project (in the /cli folder), type:
 
 ```bash
-yo mern
+npm link
 ```
 
-## Getting To Know Yeoman
+That will install your project dependencies and symlink a global module to your local file.
 
- * Yeoman has a heart of gold.
- * Yeoman is a person with feelings and opinions, but is very easy to work with.
- * Yeoman can be too opinionated at times but is easily convinced not to be.
- * Feel free to [learn more about Yeoman](http://yeoman.io/).
+## Generators
+
+### Component
+
+Generates a component in `app/components`.
+
+Example:
+
+```bash
+yo mern:component Sidebar
+```
+
+Produces `app/components/Sidebar.js`.
 
 ## License
 
