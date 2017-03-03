@@ -31,6 +31,12 @@ yo mern:component Sidebar
 
 Produces `app/components/Sidebar.js`.
 
+```bash
+yo mern:component Sidebar/Banner
+```
+
+Produces `app/components/Sidebar/Banner.js`.
+
 ## License
 
 MIT © [Making Sense](https://makingsense.com)
