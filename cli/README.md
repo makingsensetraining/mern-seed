@@ -21,9 +21,11 @@ That will install your project dependencies and symlink a global module to your 
 
 ### Component
 
-Generates a component in `app/components`.
+Generates a component in `app/components`. It has only one argument which is the name of the component/filename/path.
 
-Example:
+You can also pass an option between `--container` or `--stateless` in order to create other types of components.
+
+Simplest example:
 
 ```bash
 yo mern:component Sidebar
@@ -31,11 +33,29 @@ yo mern:component Sidebar
 
 Produces `app/components/Sidebar.js`.
 
+Example with folder:
+
 ```bash
 yo mern:component Sidebar/Banner
 ```
 
 Produces `app/components/Sidebar/Banner.js`.
+
+Example for container component:
+
+```bash
+yo mern:component Sidebar --container
+```
+
+Produces `app/components/Sidebar.js`.
+
+Example for stateless component:
+
+```bash
+yo mern:component Sidebar --stateless
+```
+
+Produces `app/components/Sidebar.js`.
 
 ## License
 
