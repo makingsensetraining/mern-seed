@@ -42,3 +42,7 @@ To execute:
 ### UI Libraries
 - Bootstrap
 - Toastr
+
+## CLI
+
+We include a CLI tool that you can use to generate some useful stuff. Read [the docs](cli/README.md).
