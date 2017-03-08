@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-fetch';
-import * as endpoints from '../api/apiEndpoints';
+import * as endpoints from './apiEndpoints';
 
-class UserApi {
+class UserService {
 
   static loadUsers() {
     const baseUrl = 'http://localhost:3000'; //ToDo: check a better way
@@ -34,4 +34,4 @@ class UserApi {
   }
 }
 
-export default UserApi;
+export default UserService;

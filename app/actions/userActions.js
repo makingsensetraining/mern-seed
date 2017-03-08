@@ -1,5 +1,5 @@
 import * as types from './actionTypes';
-import userApi from '../api/userApi';
+import userService from '../services/userService';
 
 export function loadUserSuccess(users) {
     return {type: types.LOAD_USER_SUCCESS, users: users};
@@ -11,7 +11,7 @@ export function getUserSuccess(user) {
 
 export function loadUsers() {
     return dispatch => {
-        return userApi.loadUsers()
+        return userService.loadUsers()
             .then(data => dispatch(loadUserSuccess(data)))
             .catch(error => {
                 throw(error);
@@ -21,7 +21,7 @@ export function loadUsers() {
 
 export function getUser(id) {
     return (dispatch, getState) => {
-        return userApi.getUser(id)
+        return userService.getUser(id)
             .then(user => dispatch(getUserSuccess(user)))
             .catch(error => {
                 throw(error);
