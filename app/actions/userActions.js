@@ -1,21 +1,17 @@
 import * as types from './actionTypes';
-import * as endpoints from './apiEndpoints';
-import fetch from 'isomorphic-fetch';
+import userService from '../services/userService';
 
-export function loadUserSuccess(users){
-    return { type: types.LOAD_USER_SUCCESS, users: users };
+export function loadUserSuccess(users) {
+    return {type: types.LOAD_USER_SUCCESS, users: users};
 }
 
-export function getUserSuccess(user){
-    return { type: types.GET_USER_SUCCESS, user };
+export function getUserSuccess(user) {
+    return {type: types.GET_USER_SUCCESS, user};
 }
 
-export function loadUsers(){
+export function loadUsers() {
     return dispatch => {
-
-        const baseUrl = 'http://localhost:3000'; //ToDo: check a better way
-        return fetch(baseUrl + endpoints.GET_USERS)
-            .then(response => response.json())
+        return userService.loadUsers()
             .then(data => dispatch(loadUserSuccess(data)))
             .catch(error => {
                 throw(error);
@@ -23,13 +19,9 @@ export function loadUsers(){
     };
 }
 
-export function getUser(id){
+export function getUser(id) {
     return (dispatch, getState) => {
-        const baseUrl = 'http://localhost:3000'; //ToDo: check a better way
-        const url = baseUrl + endpoints.GET_USER + `/${id}`;
-
-        return fetch(url)
-            .then(response => response.json())
+        return userService.getUser(id)
             .then(user => dispatch(getUserSuccess(user)))
             .catch(error => {
                 throw(error);
