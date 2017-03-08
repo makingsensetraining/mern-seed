@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import nock from 'nock';
 import configureMockStore from 'redux-mock-store';
 
-import * as endpoints from './apiEndpoints';
+import * as endpoints from '../services/apiEndpoints';
 import * as userActions from './userActions';
 import * as types from './actionTypes';
 

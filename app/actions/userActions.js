@@ -58,56 +58,30 @@ export function getUser(id) {
 
 export function createUser(user) {
     return (dispatch, getState) => {
-        return fetch(`${endpoints.BASE_URL}${endpoints.POST_USER}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                user: user
-            })
-        })
-        .then(response => response.json())
-        .then(savedUser => {
-            dispatch(createUserSuccess(savedUser));
-        })
-        .catch(error => {
-            throw (error);
-        });
+        return userService.createUser(user)
+            .then(createdUser => dispatch(createUserSuccess(createdUser)))
+            .catch(error => {
+                throw (error);
+            });
     };
 }
 
 export function updateUser(user) {
     return (dispatch, getState) => {
-        return fetch(`${endpoints.BASE_URL}${endpoints.PUT_USER}/${user.id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                user: user
-            })
-        })
-        .then(response => response.json())
-        .then(updatedUser => dispatch(updateUserSuccess(updatedUser)))
-        .catch(error => {
-            throw (error);
-        });
+        return userService.updateUser(user)
+            .then(updatedUser => dispatch(updateUserSuccess(updatedUser)))
+            .catch(error => {
+                throw (error);
+            });
     };
 }
 
 export function deleteUser(id) {
     return (dispatch, getState) => {
-        return fetch(`${endpoints.BASE_URL}${endpoints.DELETE_USER}/${id}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => response.json())
-        .then(deletedUserId => dispatch(deleteUserSuccess(deletedUserId)))
-        .catch(error => {
-            throw (error);
-        });
+        return userService.deleteUser(id)
+            .then(deletedUserId => dispatch(deleteUserSuccess(deletedUserId)))
+            .catch(error => {
+                throw (error);
+            });
     };
 }
