@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import toastr from 'toastr';
@@ -21,12 +22,13 @@ class UserAdd extends React.Component {
         this.setState({ saving: true });
         this.props.actions.createUser(user)
             .then(() => {
-                toastr.success('User created successfully');
                 this.setState({ saving: false });
+                toastr.success('User created successfully');
+                browserHistory.push('/app/users');
             })
             .catch(error => {
-                toastr.error(error.description);
                 this.setState({ saving: false });
+                toastr.error(error.description);
             });
     }
 

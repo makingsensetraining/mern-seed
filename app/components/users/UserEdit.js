@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import toastr from 'toastr';
@@ -35,12 +36,13 @@ class UserEdit extends React.Component {
 
         this.props.actions.updateUser(data)
             .then(() => {
-                toastr.success('User updated successfully');
                 this.setState({ saving: false });
+                toastr.success('User updated successfully');
+                browserHistory.push('/app/users');
             })
             .catch(error => {
-                toastr.error(error.description);
                 this.setState({ saving: false });
+                toastr.error(error.description);
             });
     }
 
