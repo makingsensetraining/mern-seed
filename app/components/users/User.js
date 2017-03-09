@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
+import { Link } from 'react-router';
 
-const User = ({id, name, email, onClickDetail, onClickEdit, onClickDelete}) => {
+const User = ({id, name, email, onClickDetail, onClickDelete}) => {
     return (
         <div className="panel panel-info">
             <div className="panel-heading">
@@ -11,7 +12,7 @@ const User = ({id, name, email, onClickDetail, onClickEdit, onClickDelete}) => {
             <div className="panel-body">
                 <p>
                     {email}
-                    <a href="" onClick={onClickEdit} id={id}>Edit</a>
+                    <Link to={`/app/users/${id}/edit`}>Edit</Link>
                     <a href="" onClick={onClickDelete} id={id}>Delete</a>
                 </p>
             </div>
@@ -24,7 +25,6 @@ User.propTypes = {
     name: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
     onClickDetail: PropTypes.func.isRequired,
-    onClickEdit: PropTypes.func.isRequired,
     onClickDelete: PropTypes.func.isRequired
 };
 

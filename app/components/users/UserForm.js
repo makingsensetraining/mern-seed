@@ -46,7 +46,7 @@ class UserForm extends React.Component {
                         &nbsp;
                         <input type="submit" disabled={!this.state.canSubmit} value={this.props.saving ? 'Saving... ' : 'Save'} />
                         &nbsp;
-                        <a onClick={this.props.onClose}>Cancel</a>
+                        <Link to="/app/users">Cancel</Link>
                     </div>
                 </Formsy.Form>
             </div>
@@ -55,7 +55,6 @@ class UserForm extends React.Component {
 }
 
 UserForm.propTypes = {
-    onClose: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
     saving: PropTypes.bool.isRequired,
     user: PropTypes.object.isRequired

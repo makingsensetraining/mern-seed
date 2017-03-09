@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import toastr from 'toastr';
 
@@ -7,8 +8,6 @@ import * as usersActions from '../../actions/userActions';
 import UserList from './UserList';
 import Modal from '../common/Modal';
 import ConfirmModal from '../common/ConfirmModal';
-import UserAddModal from './UserAddModal';
-import UserEditModal from './UserEditModal';
 
 export class UsersPage extends React.Component {
     constructor(props, context) {
@@ -19,8 +18,6 @@ export class UsersPage extends React.Component {
         };
 
         this.onClickDetail = this.onClickDetail.bind(this);
-        this.onClickAdd = this.onClickAdd.bind(this);
-        this.onClickEdit = this.onClickEdit.bind(this);
         this.onClickDelete = this.onClickDelete.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
 
@@ -42,16 +39,6 @@ export class UsersPage extends React.Component {
             .catch(() => {
                 toastr.error('The selected user does not exist.');
             });
-    }
-
-    onClickAdd(event) {
-        event.preventDefault();
-        this.userAddModal.getWrappedInstance().open();
-    }
-
-    onClickEdit(event) {
-        event.preventDefault();
-        this.userEditModal.getWrappedInstance().open(event.target.id);
     }
 
     onClickDelete(event) {
@@ -77,18 +64,15 @@ export class UsersPage extends React.Component {
         return (
             <div>
                 <h1>Users List</h1>
-                <a href="" onClick={this.onClickAdd}>Add</a>
+                <Link to="/app/users/add">Add</Link>
                 <UserList
                     users={this.props.users}
                     onClickDetail={this.onClickDetail}
-                    onClickEdit={this.onClickEdit}
                     onClickDelete={this.onClickDelete} />
                 <Modal
                     title="User Info"
                     body={this.state.user.createdAt}
                     ref={(child) => { this.modal = child; }} />
-                <UserAddModal ref={(child) => { this.userAddModal = child; }} />
-                <UserEditModal ref={(child) => { this.userEditModal = child; }} />
                 <ConfirmModal
                     title="Delete User"
                     body="Are you sure you want to delete this user?"

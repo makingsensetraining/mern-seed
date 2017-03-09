@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import User from './User';
 
-const UserList = ({users, onClickDetail, onClickEdit, onClickDelete}) => {
+const UserList = ({users, onClickDetail, onClickDelete}) => {
     let usersView = <p>Sorry, there are no users to show. You can try to add one.</p>;
     if (users.length > 0) {
         usersView = users.map((user) =>
@@ -11,7 +11,6 @@ const UserList = ({users, onClickDetail, onClickEdit, onClickDelete}) => {
                     name={user.name}
                     email={user.email}
                     onClickDetail={onClickDetail}
-                    onClickEdit={onClickEdit}
                     onClickDelete={onClickDelete} />
         );
     }
@@ -30,7 +29,6 @@ UserList.propTypes = {
         createdAt: PropTypes.string.isRequired
     }).isRequired).isRequired,
     onClickDetail: PropTypes.func.isRequired,
-    onClickEdit: PropTypes.func.isRequired,
     onClickDelete: PropTypes.func.isRequired
 };
 
