@@ -30,9 +30,8 @@ export class UsersPage extends React.Component {
         });
     }
 
-    onClickDetail(event) {
-        event.preventDefault();
-        this.props.actions.getUser(event.target.id)
+    onClickDetail(userId) {
+        this.props.actions.getUser(userId)
             .then(() => {
                 this.modal.open();
             })
@@ -41,16 +40,14 @@ export class UsersPage extends React.Component {
             });
     }
 
-    onClickDelete(event) {
-        event.preventDefault();
+    onClickDelete(userId) {
         this.setState({
-            userToDelete: event.target.id // TODO: This should be removed and send the id by param.
+            userToDelete: userId
         });
         this.userDeleteModal.open();
     }
 
     handleDelete() {
-        // TODO: This method should receive the id by param.
         this.props.actions.deleteUser(this.state.userToDelete)
             .then(() => {
                 toastr.success('User removed');

@@ -1,24 +1,43 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
-const User = ({id, name, email, onClickDetail, onClickDelete}) => {
-    return (
-        <div className="panel panel-info">
-            <div className="panel-heading">
-                <a href="" onClick={onClickDetail} id={id}>
-                    {id} - {name}
-                </a>
+class User extends React.Component {
+    constructor(props, context) {
+        super(props, context);
+
+        this.onClickDetail = this.onClickDetail.bind(this);
+        this.onClickDelete = this.onClickDelete.bind(this);
+    }
+
+    onClickDetail(event) {
+        event.preventDefault();
+        this.props.onClickDetail(this.props.id);
+    }
+
+    onClickDelete(event) {
+        event.preventDefault();
+        this.props.onClickDelete(this.props.id);
+    }
+
+    render() {
+        return (
+            <div className="panel panel-info">
+                <div className="panel-heading">
+                    <a href="" onClick={this.onClickDetail}>
+                        {this.props.id} - {this.props.name}
+                    </a>
+                </div>
+                <div className="panel-body">
+                    <p>
+                        {this.props.email}
+                        <Link to={`/app/users/${this.props.id}/edit`}>Edit</Link>
+                        <a href="" onClick={this.onClickDelete}>Delete</a>
+                    </p>
+                </div>
             </div>
-            <div className="panel-body">
-                <p>
-                    {email}
-                    <Link to={`/app/users/${id}/edit`}>Edit</Link>
-                    <a href="" onClick={onClickDelete} id={id}>Delete</a>
-                </p>
-            </div>
-        </div>
-    );
-};
+        );
+    }
+}
 
 User.propTypes = {
     id: PropTypes.number.isRequired,
