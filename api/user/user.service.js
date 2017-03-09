@@ -42,7 +42,7 @@ class UserService {
         // Finding the index is only for memory storage.
         const indexOfUserToUpdate = users.findIndex((user) => { return user.id == id });
         if (indexOfUserToUpdate === -1)
-            return cb('The user doesn\'t exists.');
+            return cb(`The user doesn't exist.`);
 
         // Get the "stored" record in memory and update with the new data.
         let user = users.find(user => user.id == id);
@@ -57,7 +57,7 @@ class UserService {
     delete(id, cb) {
         const indexOfUserToDelete = users.findIndex((user) => { return user.id == id });
         if (indexOfUserToDelete === -1)
-            return cb('The user doesn\'t exists.');
+            return cb(`The user doesn't exist.`);
 
         users.splice(indexOfUserToDelete, 1);
 
