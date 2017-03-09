@@ -1,10 +1,13 @@
-import React, {PropTypes} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router';
+import { bindActionCreators } from 'redux';
+import toastr from 'toastr';
+
 import * as usersActions from '../../actions/userActions';
 import UserList from './UserList';
-import Modal from  '../common/Modal';
-import toastr from 'toastr';
+import Modal from '../common/Modal';
+import ConfirmModal from '../common/ConfirmModal';
 
 export class UsersPage extends React.Component {
     constructor(props, context) {
@@ -14,22 +17,21 @@ export class UsersPage extends React.Component {
             user: Object.assign({}, props.user)
         };
 
-        //Mapping functions
-        this.onClickUserDetail = this.onClickUserDetail.bind(this);
+        this.onClickDetail = this.onClickDetail.bind(this);
+        this.onClickDelete = this.onClickDelete.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
 
         props.actions.loadUsers();
     }
 
-    componentWillReceiveProps(nextProps){
+    componentWillReceiveProps(nextProps) {
         this.setState({
             user: nextProps.user
         });
     }
 
-    onClickUserDetail(event){
-        event.preventDefault();
-
-        this.props.actions.getUser(event.target.id)
+    onClickDetail(userId) {
+        this.props.actions.getUser(userId)
             .then(() => {
                 this.modal.open();
             })
@@ -38,18 +40,41 @@ export class UsersPage extends React.Component {
             });
     }
 
+    onClickDelete(userId) {
+        this.setState({
+            userToDelete: userId
+        });
+        this.userDeleteModal.open();
+    }
+
+    handleDelete() {
+        this.props.actions.deleteUser(this.state.userToDelete)
+            .then(() => {
+                toastr.success('User removed');
+            })
+            .catch(error => {
+                toastr.error(error);
+            });
+    }
+
     render() {
         return (
             <div>
                 <h1>Users List</h1>
+                <Link to="/app/users/add">Add</Link>
                 <UserList
                     users={this.props.users}
-                    onClick={this.onClickUserDetail}/>
-
+                    onClickDetail={this.onClickDetail}
+                    onClickDelete={this.onClickDelete} />
                 <Modal
                     title="User Info"
                     body={this.state.user.createdAt}
                     ref={(child) => { this.modal = child; }} />
+                <ConfirmModal
+                    title="Delete User"
+                    body="Are you sure you want to delete this user?"
+                    ref={(child) => { this.userDeleteModal = child; }}
+                    confirm={this.handleDelete} />
             </div>
         );
     }
@@ -62,7 +87,6 @@ UsersPage.propTypes = {
 };
 
 function mapStatesToProps(state, ownProps) {
-
     return {
         state: state,
         users: state.users.users,
