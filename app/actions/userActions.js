@@ -39,49 +39,34 @@ export function deleteUserSuccess(userId) {
 export function loadUsers() {
     return dispatch => {
         return userService.loadUsers()
-            .then(data => dispatch(loadUserSuccess(data)))
-            .catch(error => {
-                throw (error);
-            });
+            .then(data => dispatch(loadUserSuccess(data)));
     };
 }
 
 export function getUser(id) {
     return (dispatch, getState) => {
         return userService.getUser(id)
-            .then(user => dispatch(getUserSuccess(user)))
-            .catch(error => {
-                throw (error);
-            });
+            .then(user => dispatch(getUserSuccess(user)));
     };
 }
 
 export function createUser(user) {
     return (dispatch, getState) => {
         return userService.createUser(user)
-            .then(createdUser => dispatch(createUserSuccess(createdUser)))
-            .catch(error => {
-                throw (error);
-            });
+            .then(createdUser => dispatch(createUserSuccess(createdUser)));
     };
 }
 
 export function updateUser(user) {
     return (dispatch, getState) => {
         return userService.updateUser(user)
-            .then(updatedUser => dispatch(updateUserSuccess(updatedUser)))
-            .catch(error => {
-                throw (error);
-            });
+            .then(updatedUser => dispatch(updateUserSuccess(updatedUser)));
     };
 }
 
 export function deleteUser(id) {
     return (dispatch, getState) => {
         return userService.deleteUser(id)
-            .then(deletedUserId => dispatch(deleteUserSuccess(deletedUserId)))
-            .catch(error => {
-                throw (error);
-            });
+            .then(deletedUserId => dispatch(deleteUserSuccess(deletedUserId)));
     };
 }
