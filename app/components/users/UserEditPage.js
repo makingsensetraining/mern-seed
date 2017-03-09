@@ -6,7 +6,7 @@ import toastr from 'toastr';
 import * as userActions from '../../actions/userActions';
 import UserForm from './UserForm';
 
-class UserEdit extends React.Component {
+class UserEditPage extends React.Component {
     constructor(props, context) {
         super(props, context);
 
@@ -60,7 +60,7 @@ class UserEdit extends React.Component {
     }
 }
 
-UserEdit.propTypes = {
+UserEditPage.propTypes = {
     actions: PropTypes.object.isRequired,
     user: PropTypes.object,
     params: PropTypes.object
@@ -79,4 +79,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default connect(mapStatesToProps, mapDispatchToProps)(UserEdit);
+export default connect(mapStatesToProps, mapDispatchToProps)(UserEditPage);
