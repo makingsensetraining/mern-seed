@@ -157,7 +157,6 @@ describe('User Actions', () => {
         return store.dispatch(userActions.deleteUser(userId))
             .then(() => {
                 const actions = store.getActions();
-
                 expect(actions[0].type).toEqual(types.DELETE_USER_SUCCESS);
                 expect(actions[0].userId).toEqual(expectedActions[0].userId);
             });

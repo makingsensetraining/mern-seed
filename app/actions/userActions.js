@@ -67,6 +67,6 @@ export function updateUser(user) {
 export function deleteUser(id) {
     return (dispatch, getState) => {
         return userService.deleteUser(id)
-            .then(deletedUserId => dispatch(deleteUserSuccess(deletedUserId)));
+            .then(() => dispatch(deleteUserSuccess(id)));
     };
 }

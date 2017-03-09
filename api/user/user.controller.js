@@ -44,7 +44,7 @@ class UserController {
         UserService.delete(id, (err, deletedUserId) => {
             if (err) return next(err);
 
-            res.status(200).json(deletedUserId);
+            res.status(200).end();
         });
     }
 }
