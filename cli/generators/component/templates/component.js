@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 
 class <%= name %> extends React.Component {
   constructor(props) {

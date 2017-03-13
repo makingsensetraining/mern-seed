@@ -28,7 +28,7 @@ class UserController {
   }
 
   update(req, res, next) {
-    const id = parseInt(req.params.id);
+    const id = parseInt(req.params.id, 10);
     const data = req.body.user;
 
     UserService.update(id, data, (err, updatedUser) => {

@@ -4,7 +4,7 @@ import userService from '../services/userService';
 export function loadUserSuccess(users) {
   return {
     type: types.LOAD_USER_SUCCESS,
-    users: users
+    users
   };
 }
 

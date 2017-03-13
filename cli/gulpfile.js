@@ -24,7 +24,7 @@ gulp.task('nsp', function (cb) {
 gulp.task('pre-test', function () {
   return gulp.src([
       'generators/**/*.js',
-      '!generators/**/templates/*.js' // Templates doesn't contain valid syntax.
+      '!generators/**/templates/**/*.js' // Templates doesn't contain valid syntax.
     ])
     .pipe(excludeGitignore())
     .pipe(istanbul({

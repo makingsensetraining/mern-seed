@@ -1,17 +1,17 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import User from './User';
 
-const UserList = ({users, onClickDetail, onClickDelete}) => {
+const UserList = ({ users, onClickDetail, onClickDelete }) => {
   let usersView = <p>Sorry, there are no users to show. You can try to add one.</p>;
   if (users.length > 0) {
     usersView = users.map((user) =>
-        <User
-          key={user.id}
-          id={user.id}
-          name={user.name}
-          email={user.email}
-          onClickDetail={onClickDetail}
-          onClickDelete={onClickDelete} />
+      <User
+        key={user.id}
+        id={user.id}
+        name={user.name}
+        email={user.email}
+        onClickDetail={onClickDetail}
+        onClickDelete={onClickDelete} />
     );
   }
   return (

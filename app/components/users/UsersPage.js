@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import toastr from 'toastr';
-
-import * as usersActions from '../../actions/userActions';
+import * as userActions from '../../actions/userActions';
 import UserList from './UserList';
 import Modal from '../common/Modal';
 import ConfirmModal from '../common/ConfirmModal';
@@ -96,7 +95,7 @@ function mapStatesToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(usersActions, dispatch)
+    actions: bindActionCreators(userActions, dispatch)
   };
 }
 

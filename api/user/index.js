@@ -1,4 +1,4 @@
-import {Router} from 'express';
+import { Router } from 'express';
 import controller from './user.controller';
 
 var router = new Router();
