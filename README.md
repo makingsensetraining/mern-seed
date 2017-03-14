@@ -2,17 +2,17 @@
   
 The start point to rock with ReactJS and NodeJS.
 
-## Installation/Execution
+## Installation
 
-### Installing and Running the Project
-To install please execute: 
-`npm install` over the root of the project
+To install please follow these steps:
 
-To generate UX folder and install MSUXF's structure:
-`npm run ux:init` this command will copy the files and structure in MSUXF to the folder ux for futher customizing
+1. `npm install` over the root of the project
+2. `npm run ux:init` this command will copy the files and structure in MSUXF to the folder ux for futher customizing
+3. Copy `config/default.json` file and rename it to *development.json*. Set your configuration values.
 
-To execute:
-`npm start -s` this will start the project doing all the tasks (lint, tests, etc, and also keeping the watcher active)
+## Run
+
+`npm start -s` this will start the project doing all the tasks (lint, tests, etc, and also keeping the watchers active)
 
 ## Tech Stack
 

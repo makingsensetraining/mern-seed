@@ -1,0 +1,8 @@
+{
+  "mongodb": {
+    "host": "localhost:1234",
+    "dbname": "dbname",
+    "username": "username",
+    "password": "password"
+  }
+}

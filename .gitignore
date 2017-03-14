@@ -1,3 +1,9 @@
 .idea
 node_modules
 dist
+
+# Ignore config files
+/config/*
+
+# except default.json which is maintained
+!/config/default.json
