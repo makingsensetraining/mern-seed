@@ -54,7 +54,7 @@ class UserService {
       }
     });
 
-    return fetch(request).then(response => response.json());
+    return fetch(request);
   }
 }
 
