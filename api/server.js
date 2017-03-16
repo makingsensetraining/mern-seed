@@ -4,7 +4,7 @@ import webpack from 'webpack';
 import path from 'path';
 import config from '../webpack.config';
 import open from 'open';
-import mongodbConnection from './mongodb';
+import mongodbConnection from './database/mongodb';
 
 /* eslint-disable no-console */
 
@@ -22,7 +22,13 @@ app.use(require('./user/index.js'));
 
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../app/index.html'));
-}).listen(port, (err) => {
-  if (err) return console.log(err);
-  open(`http://localhost:${port}`);
+});
+
+mongodbConnection.once('open', () => {
+  console.log('Mongodb server connected.');
+
+  app.listen(port, (err) => {
+    if (err) return console.log(err);
+    open(`http://localhost:${port}`);
+  });
 });

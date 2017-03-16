@@ -1,67 +1,42 @@
-const <%= pluralizedName %> = [];
+import <%= ucName %> from './<%= name %>.schema';
 
 class <%= ucName %>Service {
-  constructor() {
-    this.nextId = 0;
-
-    // Seed with some dummy data.
-    for (let i = 1; i <= 10; i++) {
-      var id = this._generateNextId();
-      <%= pluralizedName %>.push({
-        id: id,
-        name: `Test Name ${id}`
-      });
-    }
-  }
-
   findAll(cb) {
-    let all<%= pluralizedUcName %> = <%= pluralizedName %>;
-
-    return cb(null, all<%= pluralizedUcName %>);
+    <%= ucName %>.find()
+      .then(<%= pluralizedName %> => cb(null, <%= pluralizedName %>))
+      .catch(err => cb('Unable to retrieve <%= pluralizedName %>.'));
   }
 
   findById(id, cb) {
-    const <%= name %> = <%= pluralizedName %>.find(<%= name %> => <%= name %>.id == id);
-
-    return cb(null, <%= name %>);
+    <%= ucName %>.findById(id)
+      .then(<%= name %> => cb(null, <%= name %>))
+      .catch(err => cb('Unable to find <%= name %>.'));
   }
 
-  create(<%= name %>, cb) {
-    <%= name %>.id = this._generateNextId();
-    <%= pluralizedName %>.push(<%= name %>);
-
+  create(data, cb) {
+    let <%= name %> = new <%= ucName %>(data);
+    <%= name %>.save();
     return cb(null, <%= name %>);
   }
 
   update(id, data, cb) {
-    // Finding the index is only for memory storage.
-    const indexOf<%= ucName %>ToUpdate = <%= pluralizedName %>.findIndex((<%= name %>) => { return <%= name %>.id == id });
-    if (indexOf<%= ucName %>ToUpdate === -1)
-      return cb(`The <%= name %> doesn't exist.`);
+    delete data.id;
 
-    // Get the "stored" record in memory and update with the new data.
-    let <%= name %> = <%= pluralizedName %>.find(<%= name %> => <%= name %>.id == id);
-    Object.assign(<%= name %>, data);
-
-    // Put the updated record on memory.
-    <%= pluralizedName %>.splice(indexOf<%= ucName %>ToUpdate, 1, <%= name %>);
-
-    return cb(null, <%= name %>);
+    <%= ucName %>.findByIdAndUpdate(id, data, { new: true }) // Using { new: true } to return the modified document rather than the original.
+      .then((<%= name %>) => {
+        if (!<%= name %>) return cb(`The <%= name %> doesn't exist.`);
+        cb(null, <%= name %>);
+      })
+      .catch(err => cb('Unable to update <%= name %>.'));
   }
 
   delete(id, cb) {
-    const indexOf<%= ucName %>ToDelete = <%= pluralizedName %>.findIndex((<%= name %>) => { return <%= name %>.id == id });
-    if (indexOf<%= ucName %>ToDelete === -1)
-      return cb(`The <%= name %> doesn't exist.`);
-
-    <%= pluralizedName %>.splice(indexOf<%= ucName %>ToDelete, 1);
-
-    return cb(null, id);
-  }
-
-  _generateNextId() {
-    this.nextId += 1;
-    return this.nextId;
+    <%= ucName %>.findByIdAndRemove(id, { select: '_id' })
+      .then((<%= name %>) => {
+        if (!<%= name %>) return cb(`The <%= name %> doesn't exist.`);
+        cb(null, id);
+      })
+      .catch(err => cb('Unable to delete <%= name %>.'));
   }
 }
 

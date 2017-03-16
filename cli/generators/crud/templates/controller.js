@@ -28,7 +28,7 @@ class <%= ucName %>Controller {
   }
 
   update(req, res, next) {
-    const id = parseInt(req.params.id, 10);
+    const id = req.params.id;
     const data = req.body.<%= name %>;
 
     <%= ucName %>Service.update(id, data, (err, updated<%= ucName %>) => {

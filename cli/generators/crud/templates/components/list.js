@@ -22,7 +22,7 @@ const <%= ucName %>List = ({ <%= pluralizedName %>, onClickDetail, onClickDelete
 
 <%= ucName %>List.propTypes = {
   <%= pluralizedName %>: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired
   }).isRequired).isRequired,
   onClickDetail: PropTypes.func.isRequired,

@@ -3,6 +3,10 @@
     "host": "localhost:1234",
     "dbname": "dbname",
     "username": "username",
-    "password": "password"
+    "password": "password",
+    "socketOptions": {
+      "keepAlive": 300000,
+      "connectTimeoutMS": 30000
+    }
   }
 }

@@ -12,20 +12,20 @@ function setup() {
     },
     users: [
       {
-        id: 1,
+        id: 'some-id-1',
         name: 'Test User 1',
         email: 'testinguser@makingsense.com',
         createdAt: '2017-01-20'
       },
       {
-        id: 2,
+        id: 'some-id-2',
         name: 'Test User 2',
         email: 'testinguser2@makingsense.com',
         createdAt: '2017-01-21'
       }
     ],
     user: {
-      id: 0,
+      id: '',
       name: '',
       email: '',
       createdAt: ''

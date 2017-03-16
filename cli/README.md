@@ -89,6 +89,7 @@ yo mern:crud Car
 
 Produces:
 
+- `api/car/car.schema.js`
 - `api/car/car.service.js`
 - `api/car/car.controller.js`
 - `api/car/index.js`

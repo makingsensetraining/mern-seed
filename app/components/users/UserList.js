@@ -23,7 +23,7 @@ const UserList = ({ users, onClickDetail, onClickDelete }) => {
 
 UserList.propTypes = {
   users: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
     createdAt: PropTypes.string.isRequired

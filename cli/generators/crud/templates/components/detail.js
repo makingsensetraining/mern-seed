@@ -40,7 +40,7 @@ class <%= ucName %> extends React.Component {
 }
 
 <%= ucName %>.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   onClickDetail: PropTypes.func.isRequired,
   onClickDelete: PropTypes.func.isRequired

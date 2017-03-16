@@ -16,6 +16,11 @@ describe('generator-mern:crud', function () {
       .toPromise();
   });
 
+  it('creates a schema file', function () {
+    assert.file([`api/${crudLowerCaseName}/${crudLowerCaseName}.schema.js`]);
+    assert.fileContent(`api/${crudLowerCaseName}/${crudLowerCaseName}.schema.js`, `const ${crudLowerCaseName}Schema`);
+  });
+
   it('creates a service file', function () {
     assert.file([`api/${crudLowerCaseName}/${crudLowerCaseName}.service.js`]);
     assert.fileContent(`api/${crudLowerCaseName}/${crudLowerCaseName}.service.js`, `class ${crudName}Service {`);

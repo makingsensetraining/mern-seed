@@ -19,6 +19,13 @@ module.exports = class extends Generator {
       pluralizedUcName: utils.toFirstLetterUpperCase(pluralizedName)
     };
 
+    // Schema.
+    this.fs.copyTpl(
+      this.templatePath('schema.js'),
+      this.destinationPath(`api/${name}/${name}.schema.js`),
+      data
+    );
+
     // Controller.
     this.fs.copyTpl(
       this.templatePath('service.js'),
