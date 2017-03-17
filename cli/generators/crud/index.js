@@ -7,6 +7,13 @@ module.exports = class extends Generator {
     super(args, opts);
 
     this.argument('name', { type: String, required: true });
+
+    this.option('api', {
+      desc: 'Include API related files',
+      type: Boolean
+    });
+
+    this.includeApi = this.options.api || this.options.api === undefined;
   }
 
   writing() {
@@ -19,33 +26,36 @@ module.exports = class extends Generator {
       pluralizedUcName: utils.toFirstLetterUpperCase(pluralizedName)
     };
 
-    // Schema.
-    this.fs.copyTpl(
-      this.templatePath('schema.js'),
-      this.destinationPath(`api/${name}/${name}.schema.js`),
-      data
-    );
+    // Only include API files when needed.
+    if (this.includeApi) {
+      // Schema.
+      this.fs.copyTpl(
+        this.templatePath('schema.js'),
+        this.destinationPath(`api/${name}/${name}.schema.js`),
+        data
+      );
 
-    // Controller.
-    this.fs.copyTpl(
-      this.templatePath('service.js'),
-      this.destinationPath(`api/${name}/${name}.service.js`),
-      data
-    );
+      // Controller.
+      this.fs.copyTpl(
+        this.templatePath('service.js'),
+        this.destinationPath(`api/${name}/${name}.service.js`),
+        data
+      );
 
-    // Service.
-    this.fs.copyTpl(
-      this.templatePath('controller.js'),
-      this.destinationPath(`api/${name}/${name}.controller.js`),
-      data
-    );
+      // Service.
+      this.fs.copyTpl(
+        this.templatePath('controller.js'),
+        this.destinationPath(`api/${name}/${name}.controller.js`),
+        data
+      );
 
-    // Index.
-    this.fs.copyTpl(
-      this.templatePath('index.js'),
-      this.destinationPath(`api/${name}/index.js`),
-      data
-    );
+      // Index.
+      this.fs.copyTpl(
+        this.templatePath('index.js'),
+        this.destinationPath(`api/${name}/index.js`),
+        data
+      );
+    }
 
     // Actions.
     this.fs.copyTpl(

@@ -81,6 +81,8 @@ Produces `app/components/Sidebar.js`.
 
 Generates a series of files used in a basic CRUD scaffolding.
 
+You can pass a `--no-api` param to skip API files.
+
 Example:
 
 ```bash
@@ -93,6 +95,24 @@ Produces:
 - `api/car/car.service.js`
 - `api/car/car.controller.js`
 - `api/car/index.js`
+- `app/actions/carActions.js`
+- `app/reducers/carReducer.js`
+- `app/services/carService.js`
+- `app/components/car/CarPage.js`
+- `app/components/car/CarList.js`
+- `app/components/car/Car.js`
+- `app/components/car/CarForm.js`
+- `app/components/car/CarAddPage.js`
+- `app/components/car/CarEditPage.js`
+
+Example with `--no-api`:
+
+```bash
+yo mern:crud Car --no-api
+```
+
+Produces:
+
 - `app/actions/carActions.js`
 - `app/reducers/carReducer.js`
 - `app/services/carService.js`
