@@ -7,8 +7,7 @@ The start point to rock with ReactJS and NodeJS.
 To install please follow these steps:
 
 1. `npm install` over the root of the project
-2. `npm run ux:init` this command will copy the files and structure in MSUXF to the folder ux for futher customizing
-3. Copy `config/default.json` file and rename it to *development.json*. Set your configuration values.
+2. Copy `config/default.json` file and rename it to *development.json*. Set your configuration values.
 
 ## Run
 

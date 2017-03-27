@@ -1,0 +1,25 @@
+////
+/// IMPORTS
+///
+/// -> Libs
+/// - A collection of dependencies
+///
+/// -> Helpers
+/// - Collection of custom SASS Functions, Mixins, Animations and helper classes.
+/// 	These files are included before the core since core makes use of some functions and mixins.
+///
+/// -> Core
+/// - Main styles. Core content.
+///
+/// -> Common
+/// - Every modular/reusable element has its styles defined here.
+///
+/// -> Shame CSS
+/// - Yeah, we should be ashamed of this. MUST fix these in the near future.
+////
+
+@import "libs/*";
+@import "helpers/*";
+@import "core/base";
+@import "common/*";
+@import "shame";
