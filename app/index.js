@@ -7,10 +7,8 @@ import {Provider} from 'react-redux';
 import { Router, browserHistory } from 'react-router';
 import routes from './routes';
 //Webpack CSS import
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import '../node_modules/toastr/build/toastr.min.css';
-import '../node_modules/griddle-react-bootstrap/dist/griddle-react-bootstrap.css';
 import './ux/styles.scss';
+import './ux/iconfont/iconfont.font';
 
 const store = configureStore();
 

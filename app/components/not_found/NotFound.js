@@ -7,7 +7,7 @@ const NotFound = (props) => {
       <h2>404 Not Found</h2>
       <p>Sorry, the page you were looking for is not available.</p>
       <p> Please try again or go to &nbsp;
-        <Link to="/" activeClassName="active"><i className="glyphicon glyphicon-home"/> Home</Link>
+        <Link to="/">Home</Link>
       </p>
     </div>
   );

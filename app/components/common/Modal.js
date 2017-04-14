@@ -19,25 +19,19 @@ class Modal extends React.Component {
 
   render() {
     return (
-      <div>
         <DropModal ref="modal">
-          <div className={`modal-${this.props.size}`}>
-            <div className="modal-content">
-              <div className="modal-header">
-                <button type="button" className="close" onClick={this.hide}>×</button>
-                <h2 className="modal-title">{this.props.title}</h2>
-              </div>
-              <div className="modal-body">
-                {this.props.body}
-              </div>
-              <div className="modal-footer">
-                <button className="btn btn-primary" type="button" onClick={this.hide}>Close</button>
-                {this.props.footer}
-              </div>
-            </div>
+          <div>
+            <button type="button" onClick={this.hide}>×</button>
+            <h2>{this.props.title}</h2>
+          </div>
+          <div>
+            {this.props.body}
+          </div>
+          <div>
+            <button type="button" onClick={this.hide}>Close</button>
+            {this.props.footer}
           </div>
         </DropModal>
-      </div>
     );
 
   }

@@ -21,19 +21,13 @@ class User extends React.Component {
 
   render() {
     return (
-      <div className="panel panel-info">
-        <div className="panel-heading">
-          <a href="" onClick={this.onClickDetail}>
-            {this.props.id} - {this.props.name}
-          </a>
-        </div>
-        <div className="panel-body">
-          <p>
-            {this.props.email}
-            <Link to={`/app/users/${this.props.id}/edit`}>Edit</Link>
-            <a href="" onClick={this.onClickDelete}>Delete</a>
-          </p>
-        </div>
+      <div>
+        <a href="" onClick={this.onClickDetail}>
+          {this.props.id} - {this.props.name}
+        </a>
+        {this.props.email}
+        <Link to={`/app/users/${this.props.id}/edit`}>Edit</Link>
+        <a href="" onClick={this.onClickDelete}>Delete</a>
       </div>
     );
   }

@@ -1,63 +1,103 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import Formsy from 'formsy-react';
-import { Input, Textarea } from 'formsy-react-components';
+import Input from '../common/form/Input';
+import validateInput from './UserForm.validation';
 
 class UserForm extends React.Component {
   constructor(props, context) {
     super(props, context);
 
     this.state = {
-      canSubmit: false
+      username: '',
+      password: '',
+      errors: {},
+      touched: {
+        username: false,
+        password: false,
+      },
     };
 
-    this.enableButton = this.enableButton.bind(this);
-    this.disableButton = this.disableButton.bind(this);
-    this.submit = this.submit.bind(this);
-    this.resetForm = this.resetForm.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
   }
 
-  enableButton() {
-    this.setState({ canSubmit: true });
+  isValid() {
+    const { errors, isValid } = validateInput(this.state);
+    this.setState({ errors });
+    return isValid;
   }
 
-  disableButton() {
-    this.setState({ canSubmit: false });
+  handleChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
   }
 
-  submit(model) {
-    this.props.onSave(model);
+  handleBlur(e) {
+    const field = e.target.name;
+    this.setState({
+      touched: { ...this.state.touched, [field]: true }
+    });
+    this.isValid();
   }
 
-  resetForm() {
-    this.refs.form.reset();
+  handleSubmit(e) {
+    e.preventDefault();
+
+    //As we have to show all errors on form submit, we set as touched all fields.
+    this.setState({
+      touched: {
+        username: true,
+        password: true
+      }
+    });
+
+    if (!this.isValid())
+      return;
+
+    this.setState({ errors: {} });
+    this.props.onUserFormSubmit(this.state.username, this.state.password);
   }
 
   render() {
     return (
-      <div>
-        <Formsy.Form ref="form" className="horizontal" onValidSubmit={this.submit} onValid={this.enableButton} onInvalid={this.disableButton}>
-          <Input formNoValidate required name="name" label="Name" placeholder="Name" value={this.props.user.name || ''} />
-          <Input formNoValidate required name="email" label="Email" placeholder="Email" value={this.props.user.email || ''}
-            validations="isEmail"
-            validationError="This is not a valid email" />
-          <div>
-            <button type="button" onClick={this.resetForm}>Reset</button>
-            &nbsp;
-            <input type="submit" disabled={!this.state.canSubmit} value={this.props.saving ? 'Saving... ' : 'Save'} />
-            &nbsp;
-            <Link to="/app/users">Cancel</Link>
-          </div>
-        </Formsy.Form>
-      </div>
+      <form
+        className="login-form"
+        noValidate
+        onSubmit={this.handleSubmit}>
+        <Input
+          type="email"
+          name="username"
+          label="Email"
+          autoFocus={true}
+          value={this.state.username}
+          touched={this.state.touched.username}
+          error={this.state.errors.username}
+          onChange={this.handleChange}
+          onBlur={this.handleBlur}
+        />
+        <Input
+          type="password"
+          name="password"
+          label="Password"
+          value={this.state.password}
+          touched={this.state.touched.password}
+          error={this.state.errors.password}
+          onChange={this.handleChange}
+          onBlur={this.handleBlur}
+        />
+        <input
+          className="btn btn--primary"
+          type="submit"
+          value="Send" />
+      </form>
     );
   }
 }
 
 UserForm.propTypes = {
-  onSave: PropTypes.func.isRequired,
-  saving: PropTypes.bool.isRequired,
-  user: PropTypes.object.isRequired
+  onUserFormSubmit: PropTypes.func.isRequired,
+  logInProgress: PropTypes.bool.isRequired,
+  error: PropTypes.string
 };
 
 export default UserForm;

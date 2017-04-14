@@ -16,7 +16,6 @@ class AboutPage extends React.Component {
           <li>React</li>
           <li>Redux</li>
         </ul>
-
       </div>
     );
   }
