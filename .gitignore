@@ -4,6 +4,8 @@ dist
 
 # Ignore config files
 /config/*
+/ux/*
 
 # except default.json which is maintained
 !/config/default.json
+
