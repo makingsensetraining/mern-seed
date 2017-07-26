@@ -11,7 +11,4 @@ export default {
   modal: {
     show: false
   },
-  userToDelete: '',
-  users: [],
-  user: {}
 };

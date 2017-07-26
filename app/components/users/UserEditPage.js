@@ -1,49 +1,34 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import toastr from 'toastr';
+import autoBind from 'react-autobind';
 import * as userActions from '../../actions/userActions';
 import UserForm from './UserForm';
+import { alertMessage } from '../../helpers';
 
-class UserEditPage extends React.Component {
+class UserEditPage extends Component {
   constructor(props, context) {
     super(props, context);
-
-    this.state = {
-      user: Object.assign({}, props.user),
-      saving: false
-    };
-
-    this.handleSave = this.handleSave.bind(this);
-
-    // TODO: Avoid when is already on the state?
+    autoBind(this);
     props.actions.getUser(props.params.id);
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({ user: Object.assign({}, nextProps.user) });
+  componentWillUpdate(nextProps) {
+    if (nextProps.alert !== this.props.alert) {
+      alertMessage(nextProps.alert);
+    }
   }
 
   handleSave(user) {
-    this.setState({ saving: true });
-
     let data = {
-      id: this.state.user.id,
+      id: this.props.user.id,
       name: user.name,
       email: user.email
     };
 
-    this.props.actions.updateUser(data)
-      .then(() => {
-        this.setState({ saving: false });
-        toastr.success('User updated successfully');
-        browserHistory.push('/app/users');
-      })
-      .catch(error => {
-        this.setState({ saving: false });
-        toastr.error(error.description);
-      });
+    this.props.actions.updateUser(data);
   }
 
   render() {
@@ -52,8 +37,11 @@ class UserEditPage extends React.Component {
         <h1>Edit User</h1>
         <UserForm
           onSave={this.handleSave}
-          saving={this.state.saving}
-          user={this.state.user}
+          saving={this.props.saving}
+          canSubmit={this.props.canSubmit}
+          enableSubmit={this.props.actions.enableSubmit}
+          disableSubmit={this.props.actions.disableSubmit}
+          user={this.props.user}
         />
       </div>
     );
@@ -62,14 +50,20 @@ class UserEditPage extends React.Component {
 
 UserEditPage.propTypes = {
   actions: PropTypes.object.isRequired,
+  alert: PropTypes.object,
+  saving: PropTypes.bool,
   user: PropTypes.object,
+  canSubmit: PropTypes.bool,
   params: PropTypes.object
 };
 
 function mapStatesToProps(state, ownProps) {
   return {
-    state: state,
-    user: state.user
+    state: state.reducers,
+    alert: state.reducers.alert,
+    saving: state.reducers.saving,
+    canSubmit: state.reducers.canSubmit,
+    user: state.reducers.user
   };
 }
 

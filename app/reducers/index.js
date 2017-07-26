@@ -1,9 +1,13 @@
 import {combineReducers} from 'redux';
-import {users, user} from './userReducer';
+import {users, user, alert, canSubmit, saving, userToDelete} from './userReducer';
 
 const rootReducer = combineReducers({
   users,
-  user
+  user,
+  alert,
+  canSubmit,
+  saving,
+  userToDelete
 });
 
 export default rootReducer;

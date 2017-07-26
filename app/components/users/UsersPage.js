@@ -1,32 +1,26 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import toastr from 'toastr';
+import autoBind from 'react-autobind';
 import * as userActions from '../../actions/userActions';
 import UserList from './UserList';
 import Modal from '../common/Modal';
 import ConfirmModal from '../common/ConfirmModal';
+import { alertMessage } from '../../helpers';
 
-export class UsersPage extends React.Component {
+export class UsersPage extends Component {
   constructor(props, context) {
     super(props, context);
-
-    this.state = {
-      user: Object.assign({}, props.user)
-    };
-
-    this.onClickDetail = this.onClickDetail.bind(this);
-    this.onClickDelete = this.onClickDelete.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
-
+    autoBind(this);
     props.actions.loadUsers();
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      user: nextProps.user
-    });
+  componentWillUpdate(nextProps) {
+    if (nextProps.alert !== this.props.alert) {
+      alertMessage(nextProps.alert);
+    }
   }
 
   onClickDetail(userId) {
@@ -40,20 +34,12 @@ export class UsersPage extends React.Component {
   }
 
   onClickDelete(userId) {
-    this.setState({
-      userToDelete: userId
-    });
+    this.props.actions.requestUserId(userId);
     this.userDeleteModal.open();
   }
 
   handleDelete() {
-    this.props.actions.deleteUser(this.state.userToDelete)
-      .then(() => {
-        toastr.success('User removed');
-      })
-      .catch(error => {
-        toastr.error(error);
-      });
+    this.props.actions.deleteUser(this.props.userToDelete);
   }
 
   render() {
@@ -67,7 +53,7 @@ export class UsersPage extends React.Component {
           onClickDelete={this.onClickDelete} />
         <Modal
           title="User Info"
-          body={this.state.user.createdAt}
+          body={this.props.user.createdAt}
           ref={(child) => { this.modal = child; }} />
         <ConfirmModal
           title="Delete User"
@@ -81,15 +67,19 @@ export class UsersPage extends React.Component {
 
 UsersPage.propTypes = {
   actions: PropTypes.object,
+  alert: PropTypes.object,
+  userToDelete: PropTypes.string,
   users: PropTypes.array.isRequired,
   user: PropTypes.object.isRequired
 };
 
 function mapStatesToProps(state, ownProps) {
   return {
-    state: state,
-    users: state.users.users,
-    user: state.user
+    state: state.reducers,
+    alert: state.reducers.alert,
+    userToDelete: state.reducers.userToDelete,
+    users: state.reducers.users.users,
+    user: state.reducers.user
   };
 }
 
