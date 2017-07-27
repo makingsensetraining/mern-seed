@@ -9,6 +9,7 @@ export default {
     show: false
   },
   modal: {
-    show: false
+    id: '',
+    show: false,
   },
 };

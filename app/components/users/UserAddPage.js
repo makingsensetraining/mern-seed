@@ -3,12 +3,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import autoBind from 'react-autobind';
 import * as userActions from '../../actions/userActions';
+import * as alertActions from '../../actions/alertActions';
 import UserForm from './UserForm';
 import { alertMessage } from '../../helpers';
 
 class UserAddPage extends Component {
   constructor(props, context) {
     super(props, context);
+
     autoBind(this);
   }
 
@@ -66,7 +68,7 @@ function mapStatesToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(userActions, dispatch)
+    actions: bindActionCreators({...userActions, ...alertActions}, dispatch)
   };
 }
 

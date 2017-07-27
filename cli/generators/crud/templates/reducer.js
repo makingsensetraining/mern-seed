@@ -50,19 +50,6 @@ export const <%= name %> = (state = initialState.<%= name %>, action) => {
   }
 };
 
-export const alert = (state = initialState.alert, action) => {
-  switch (action.type) {
-    case types.SHOW_ALERT:
-      return action.alert;
-
-    case types.HIDE_ALERT:
-      return action.alert;
-
-    default:
-      return state;
-  }
-};
-
 export const saving = (state = initialState.saving, action) => {
   switch (action.type) {
     case types.SAVING_<%= name.toUpperCase() %>:

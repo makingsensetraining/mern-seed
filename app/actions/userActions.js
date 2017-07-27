@@ -1,33 +1,8 @@
 import { push } from 'react-router-redux';
 import * as types from './actionTypes';
 import { showModal } from './modalActions';
+import { showAlert, hideAlert } from './alertActions';
 import userService from '../services/userService';
-
-export function showAlert(dispatch, content, type) {
-  dispatch({
-    type: types.SHOW_ALERT,
-    alert: {
-      message: {
-        content,
-        type
-      },
-      show: true
-    }
-  });
-}
-
-export function hideAlert(dispatch) {
-  dispatch({
-    type: types.HIDE_ALERT,
-    alert: {
-      message: {
-        content: 'hide',
-        type: ''
-      },
-      show: false
-    }
-  });
-}
 
 export function loadUserSuccess(users) {
   return {

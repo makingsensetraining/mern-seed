@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import autoBind from 'react-autobind';
 import * as <%= name %>Actions from '../../actions/<%= name %>Actions';
+import * as alertActions from '../../actions/alertActions';
 import { alertMessage } from '../../helpers';
 import <%= ucName %>Form from './<%= ucName %>Form';
 
@@ -65,7 +66,7 @@ function mapStatesToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(<%= name %>Actions, dispatch)
+    actions: bindActionCreators({...<%= name %>Actions, ...alertActions}, dispatch)
   };
 }
 

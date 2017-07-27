@@ -1,6 +1,4 @@
 export default {
-  saving: false,
-  canSubmit: false,
   alert: {
     message : {
       content : '',
@@ -9,9 +7,12 @@ export default {
     show: false
   },
   modal: {
+    id: '',
     show: false
   },
-  userToDelete: '',
   users: [],
-  user: {}
+  user: {},
+  saving: false,
+  canSubmit: false,
+  userToDelete: '',
 };

@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import autoBind from 'react-autobind';
 import * as userActions from '../../actions/userActions';
 import * as modalActions from '../../actions/modalActions';
+import * as alertActions from '../../actions/alertActions';
 import UserList from './UserList';
 import Modal from '../common/Modal';
 import ConfirmModal from '../common/ConfirmModal';
@@ -89,7 +90,7 @@ function mapStatesToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({...userActions, ...modalActions}, dispatch)
+    actions: bindActionCreators({...userActions, ...modalActions, ...alertActions}, dispatch)
   };
 }
 

@@ -1,17 +1,18 @@
 import React, { PropTypes, Component } from 'react';
-import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import toastr from 'toastr';
 import autoBind from 'react-autobind';
 import * as userActions from '../../actions/userActions';
+import * as alertActions from '../../actions/alertActions';
 import UserForm from './UserForm';
 import { alertMessage } from '../../helpers';
 
 class UserEditPage extends Component {
   constructor(props, context) {
     super(props, context);
+
     autoBind(this);
+
     props.actions.getUser(props.params.id);
   }
 
@@ -69,7 +70,7 @@ function mapStatesToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(userActions, dispatch)
+    actions: bindActionCreators({...userActions, ...alertActions}, dispatch)
   };
 }
 
