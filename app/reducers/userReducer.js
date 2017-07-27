@@ -89,10 +89,6 @@ export const userToDelete = (state = initialState.userToDelete, action) => {
   }
 };
 
-export const modal = (state = initialState.modal, action) => {
-  return state;
-};
-
 export const canSubmit = (state = initialState.canSubmit, action) => {
   switch (action.type) {
     case types.ENABLE_SUBMIT:

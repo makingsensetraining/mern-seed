@@ -89,10 +89,6 @@ export const <%= name %>ToDelete = (state = initialState.<%= name %>ToDelete, ac
   }
 };
 
-export const modal = (state = initialState.modal, action) => {
-  return state;
-};
-
 export const canSubmit = (state = initialState.canSubmit, action) => {
   switch (action.type) {
     case types.ENABLE_SUBMIT:

@@ -11,4 +11,5 @@ export const SHOW_ALERT = 'SHOW_ALERT';
 export const HIDE_ALERT = 'HIDE_ALERT';
 export const ENABLE_SUBMIT = 'ENABLE_SUBMIT';
 export const DISABLE_SUBMIT = 'DISABLE_SUBMIT';
-
+export const SHOW_MODAL = 'SHOW_MODAL';
+export const HIDE_MODAL = 'HIDE_MODAL';

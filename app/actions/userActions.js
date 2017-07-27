@@ -1,5 +1,6 @@
 import { push } from 'react-router-redux';
 import * as types from './actionTypes';
+import { showModal } from './modalActions';
 import userService from '../services/userService';
 
 export function showAlert(dispatch, content, type) {
@@ -35,11 +36,15 @@ export function loadUserSuccess(users) {
   };
 }
 
-export function getUserSuccess(user) {
-  return {
+export function getUserSuccess(dispatch, user, showUserDetails = false) {
+  dispatch({
     type: types.GET_USER_SUCCESS,
     user
-  };
+  });
+
+  if (showUserDetails) {
+    showModal('userDetailsModal', dispatch);
+  }
 }
 
 export function savingUser() {
@@ -126,11 +131,11 @@ export function loadUsers() {
   };
 }
 
-export function getUser(id) {
+export function getUser(id, showUserDetails = false) {
   return (dispatch, getState) => {
     hideAlert(dispatch);
     return userService.getUser(id)
-      .then(user => dispatch(getUserSuccess(user)))
+      .then(user => getUserSuccess(dispatch, user, showUserDetails))
       .catch(error => showAlert(dispatch, error.description, 'error'));
   };
 }

@@ -1,45 +1,54 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes, Component } from 'react';
 import {DropModal} from 'boron';
+import autoBind from 'react-autobind';
 
-class ConfirmModal extends React.Component {
+class ConfirmModal extends Component {
   constructor(props, context){
     super(props, context);
 
-    this.open = this.open.bind(this);
-    this.hide = this.hide.bind(this);
-    this.confirm = this.confirm.bind(this);
+    autoBind(this);
   }
 
-  open(){
-    this.refs.modal.show();
-  }
+  componentWillUpdate(nextProps) {
+    const { id, modal } = nextProps;
 
-  hide(){
-    this.refs.modal.hide();
+    if (modal !== this.props.modal) {
+      if (id === modal.id && modal.show) {
+        this.refs.modal.show();
+      } else {
+        this.refs.modal.hide();
+      }
+    }
   }
 
   confirm(){
-    this.hide();
+    this.close();
     this.props.confirm();
   }
 
+  close () {
+    const { close, id } = this.props;
+    close(id);
+  }
+
   render() {
+    const { id, size, title, body, footer } = this.props;
     return (
-      <div>
+      <div id={id}>
         <DropModal ref="modal">
-          <div className={`modal-${this.props.size}`}>
+          <div className={`modal-${size}`}>
             <div className="modal-content">
               <div className="modal-header">
-                <button type="button" className="close" onClick={this.hide}>×</button>
-                <h2 className="modal-title">{this.props.title}</h2>
+                <button type="button" className="close" onClick={this.close}>×</button>
+                <h2 className="modal-title">{title}</h2>
               </div>
               <div className="modal-body">
-                {this.props.body}
+                {body}
               </div>
               <div className="modal-footer">
                 <button className="btn btn-success" type="button" onClick={this.confirm}>Confirm</button>
-                <button className="btn btn-default" type="button" onClick={this.hide}>Cancel</button>
-                {this.props.footer}
+                <button className="btn btn-default" type="button" onClick={this.close}>Cancel</button>
+                {footer}
               </div>
             </div>
           </div>
@@ -55,11 +64,14 @@ ConfirmModal.defaultProps = {
 };
 
 ConfirmModal.propTypes = {
+  id: PropTypes.string.isRequired,
   size: PropTypes.string,
   title: PropTypes.string.isRequired,
   body: PropTypes.string.isRequired,
   footer: PropTypes.string,
-  confirm: PropTypes.func.isRequired
+  confirm: PropTypes.func.isRequired,
+  close: PropTypes.func.isRequired,
+  modal: PropTypes.object.isRequired
 };
 
 export default ConfirmModal;

@@ -2,9 +2,9 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
-import toastr from 'toastr';
 import autoBind from 'react-autobind';
 import * as <%= name %>Actions from '../../actions/<%= name %>Actions';
+import * as modalActions from '../../actions/modalActions';
 import <%= ucName %>List from './<%= ucName %>List';
 import Modal from '../common/Modal';
 import ConfirmModal from '../common/ConfirmModal';
@@ -25,22 +25,16 @@ export class <%= ucName %>Page extends Component {
   }
 
   onClickDetail(<%= name %>Id) {
-    this.props.actions.get<%= ucName %>(<%= name %>Id);
+    this.props.actions.get<%= ucName %>(<%= name %>Id, true);
   }
 
   onClickDelete(<%= name %>Id) {
     this.props.actions.request<%= ucName %>Id(<%= name %>Id);
-    this.<%= name %>DeleteModal.open();
+    this.props.actions.showModal('<%= name %>DetailsModal');
   }
 
   handleDelete() {
-    this.props.actions.delete<%= ucName %>(this.props.<%= name %>ToDelete)
-      .then(() => {
-        toastr.success('<%= ucName %> removed');
-      })
-      .catch(error => {
-        toastr.error(error);
-      });
+    this.props.actions.delete<%= ucName %>(this.props.<%= name %>ToDelete);
   }
 
   render() {
@@ -51,16 +45,23 @@ export class <%= ucName %>Page extends Component {
         <<%= ucName %>List
           <%= pluralizedName %>={this.props.<%= pluralizedName %>}
           onClickDetail={this.onClickDetail}
-          onClickDelete={this.onClickDelete} />
+          onClickDelete={this.onClickDelete}
+        />
         <Modal
+          id="<%= name %>DetailsModal"
           title="<%= ucName %> Info"
-          body={this.state.<%= name %>.name}
-          ref={(child) => { this.modal = child; }} />
+          body={this.props.<%= name %>.name}
+          modal={this.props.modal}
+          close={this.props.actions.hideModal}
+        />
         <ConfirmModal
+          id="<%= name %>DeleteModal"
           title="Delete <%= ucName %>"
           body="Are you sure you want to delete this <%= name %>?"
-          ref={(child) => { this.<%= name %>DeleteModal = child; }}
-          confirm={this.handleDelete} />
+          modal={this.props.modal}
+          close={this.props.actions.hideModal}
+          confirm={this.handleDelete}
+        />
       </div>
     );
   }
@@ -88,7 +89,7 @@ function mapStatesToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(<%= name %>Actions, dispatch)
+    actions: bindActionCreators({...<%= name %>Actions, ...modalActions}, dispatch)
   };
 }
 

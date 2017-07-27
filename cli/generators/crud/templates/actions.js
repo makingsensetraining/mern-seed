@@ -1,5 +1,6 @@
 import { push } from 'react-router-redux';
 import * as types from './actionTypes';
+import { showModal } from './modalActions';
 import <%= name %>Service from '../services/<%= name %>Service';
 
 export function showAlert(dispatch, content, type) {
@@ -35,11 +36,15 @@ export function load<%= ucName %>Success(<%= pluralizedName %>) {
   };
 }
 
-export function get<%= ucName %>Success(<%= name %>) {
-  return {
+export function get<%= ucName %>Success(dispatch, <%= name %>, show<%= name.toUpperCase() %>Details = false) {
+  dispatch({
     type: types.GET_<%= name.toUpperCase() %>_SUCCESS,
     <%= name %>
-  };
+  });
+
+  if (show<%= name.toUpperCase() %>Details) {
+    showModal('<%= name %>rDetailsModal', dispatch);
+  }
 }
 
 export function create<%= ucName %>Success(dispatch, <%= name %>) {
@@ -126,11 +131,11 @@ export function load<%= pluralizedUcName %>() {
   };
 }
 
-export function get<%= ucName %>(id) {
+export function get<%= ucName %>(id, show<%= name.toUpperCase() %>Details = false) {
   return (dispatch, getState) => {
     hideAlert(dispatch);
     return <%= name %>Service.get<%= ucName %>(id)
-      .then(<%= name %> => dispatch(get<%= ucName %>Success(<%= name %>)))
+      .then(<%= name %> => get<%= ucName %>Success(dispatch, <%= name %>, show<%= name.toUpperCase() %>Details))
       .catch(error => showAlert(dispatch, error.description, 'error'));
   };
 }
