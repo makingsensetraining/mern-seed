@@ -105,6 +105,10 @@ Produces:
 - `app/components/car/CarAddPage.js`
 - `app/components/car/CarEditPage.js`
 
+Updates:
+
+- `app/actions/actionTypes.js`
+
 Example with `--no-api`:
 
 ```bash
@@ -123,22 +127,22 @@ Produces:
 - `app/components/car/CarAddPage.js`
 - `app/components/car/CarEditPage.js`
 
+Updates:
+
+- `app/actions/actionTypes.js`
+
+**Pro tip**: If you want to avoid the prompt when updating existing files use the option `--force`:
+
+```bash
+yo mern:crud Car --force
+```
+
 But wait: that's not all. You still need to do a couple of minor changes/additions.
 
 #### api/server.js
 
 ```javascript
 app.use(require('./car/index.js'));
-```
-
-#### app/actions/actionTypes.js
-
-```javascript
-export const LOAD_CAR_SUCCESS = 'LOAD_CAR_SUCCESS';
-export const GET_CAR_SUCCESS = 'GET_CAR_SUCCESS';
-export const CREATE_CAR_SUCCESS = 'CREATE_CAR_SUCCESS';
-export const UPDATE_CAR_SUCCESS = 'UPDATE_CAR_SUCCESS';
-export const DELETE_CAR_SUCCESS = 'DELETE_CAR_SUCCESS';
 ```
 
 #### app/services/apiEndpoints.js

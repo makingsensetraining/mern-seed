@@ -1,8 +1,8 @@
-var Generator = require('yeoman-generator');
+var CrudGenerator = require('./crudGenerator');
 const pluralize = require('pluralize');
 const utils = require('../../utils');
 
-module.exports = class extends Generator {
+module.exports = class extends CrudGenerator {
   constructor(args, opts) {
     super(args, opts);
 
@@ -23,7 +23,8 @@ module.exports = class extends Generator {
       name,
       ucName: utils.toFirstLetterUpperCase(name),
       pluralizedName,
-      pluralizedUcName: utils.toFirstLetterUpperCase(pluralizedName)
+      pluralizedUcName: utils.toFirstLetterUpperCase(pluralizedName),
+      NAME: name.toUpperCase()
     };
 
     // Only include API files when needed.
@@ -107,6 +108,13 @@ module.exports = class extends Generator {
     this.fs.copyTpl(
       this.templatePath('components/editPage.js'),
       this.destinationPath(`app/components/${name}/${data.ucName}EditPage.js`),
+      data
+    );
+
+    // Action types.
+    this.appendTpl(
+      this.templatePath('actionTypes.js'),
+      this.destinationPath('app/actions/actionTypes.js'),
       data
     );
   }
