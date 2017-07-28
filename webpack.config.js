@@ -3,7 +3,7 @@ import webpack from 'webpack';
 import path from 'path';
 
 const GLOBALS = {
-  API_BASE_URL: JSON.stringify(`${config.api.host}:${config.api.port}${config.api.baseUrl}`)
+  API_BASE_URL: JSON.stringify(process.env.API_BASE_URL || `${config.api.host}:${config.api.port}${config.api.baseUrl}`)
 };
 
 export default {
