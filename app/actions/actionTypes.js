@@ -1,3 +1,7 @@
+export const SHOW_ALERT = 'SHOW_ALERT';
+export const HIDE_ALERT = 'HIDE_ALERT';
+export const SHOW_MODAL = 'SHOW_MODAL';
+export const HIDE_MODAL = 'HIDE_MODAL';
 export const LOAD_USER_SUCCESS = 'LOAD_USER_SUCCESS';
 export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
 export const CREATE_USER_SUCCESS = 'CREATE_USER_SUCCESS';
@@ -7,9 +11,6 @@ export const SAVING_USER = 'SAVING_USER';
 export const SAVE_USER_SUCCESS = 'SAVE_USER_SUCCESS';
 export const SAVE_USER_ERROR = 'SAVE_USER_ERROR';
 export const REQUEST_USER_ID = 'REQUEST_USER_ID';
-export const SHOW_ALERT = 'SHOW_ALERT';
-export const HIDE_ALERT = 'HIDE_ALERT';
 export const ENABLE_SUBMIT = 'ENABLE_SUBMIT';
 export const DISABLE_SUBMIT = 'DISABLE_SUBMIT';
-export const SHOW_MODAL = 'SHOW_MODAL';
-export const HIDE_MODAL = 'HIDE_MODAL';
+
