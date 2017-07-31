@@ -70,7 +70,7 @@ ConfirmModal.propTypes = {
   body: PropTypes.string.isRequired,
   footer: PropTypes.string,
   confirm: PropTypes.func.isRequired,
-  close: PropTypes.func.isRequired,
+  close: PropTypes.func,
   modal: PropTypes.object.isRequired
 };
 

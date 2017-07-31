@@ -1,37 +1,33 @@
-import { SHOW_MODAL, HIDE_MODAL } from './actionTypes';
+import { SHOW_MODAL_SUCCESS, HIDE_MODAL_SUCCESS } from './actionTypes';
 
-export function showModal(id, dispatcher = null) {
-  const modalActionType = {
-    type: SHOW_MODAL,
+export function showModalSuccess(id) {
+  return {
+    type: SHOW_MODAL_SUCCESS,
     modal: {
       id,
       show: true
     }
   };
-
-  if (!dispatcher) {
-    return dispatch => {
-      dispatch(modalActionType);
-    };
-  }
-
-  dispatcher(modalActionType);
 }
 
-export function hideModal(id, dispatcher = null) {
-  const modalActionType = {
-    type: HIDE_MODAL,
+export function hideModalSuccess(id) {
+  return {
+    type: HIDE_MODAL_SUCCESS,
     modal: {
       id,
       show: false
     }
   };
+}
 
-  if (!dispatcher) {
-    return dispatch => {
-      dispatch(modalActionType);
-    };
-  }
+export function showModal(id) {
+  return dispatch => {
+    dispatch(showModalSuccess(id));
+  };
+}
 
-  dispatcher(modalActionType);
+export function hideModal(id) {
+  return dispatch => {
+    dispatch(hideModalSuccess(id));
+  };
 }

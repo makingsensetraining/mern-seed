@@ -10,8 +10,8 @@ export default {
     id: '',
     show: false
   },
-  saving: false,
-  canSubmit: false,
+  savingUser: false,
+  canSubmitUser: false,
   userToDelete: '',
   users: [],
   user: {},

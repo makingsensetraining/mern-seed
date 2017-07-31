@@ -1,7 +1,7 @@
 import { push } from 'react-router-redux';
 import * as types from './actionTypes';
-import { showModal } from './modalActions';
-import { showAlert, hideAlert } from './alertActions';
+import { showModalSuccess } from './modalActions';
+import { showAlertSuccess, hideAlertSuccess } from './alertActions';
 import <%= name %>Service from '../services/<%= name %>Service';
 
 export function load<%= ucName %>Success(<%= pluralizedName %>) {
@@ -11,31 +11,32 @@ export function load<%= ucName %>Success(<%= pluralizedName %>) {
   };
 }
 
-export function get<%= ucName %>Success(dispatch, <%= name %>, show<%= name.toUpperCase() %>Details = false) {
-  dispatch({
+export function get<%= ucName %>Success(<%= name %>) {
+  return {
     type: types.GET_<%= name.toUpperCase() %>_SUCCESS,
     <%= name %>
-  });
-
-  if (show<%= name.toUpperCase() %>Details) {
-    showModal('<%= name %>rDetailsModal', dispatch);
-  }
+  };
 }
 
-export function create<%= ucName %>Success(dispatch, <%= name %>) {
-  dispatch({
+export function saving<%= ucName %>() {
+  return {
+    type : types.SAVING_<%= name.toUpperCase() %>,
+    saving<%= ucName %>: true
+  };
+}
+
+export function create<%= ucName %>Success(<%= name %>) {
+  return {
     type: types.CREATE_<%= name.toUpperCase() %>_SUCCESS,
     <%= name %>
-  });
-  save<%= ucName %>Success(dispatch, <%= name %>, '<%= ucName %> created successfully');
+  };
 }
 
-export function update<%= ucName %>Success(dispatch, <%= name %>) {
-  dispatch({
+export function update<%= ucName %>Success(<%= name %>) {
+  return {
     type: types.UPDATE_<%= name.toUpperCase() %>_SUCCESS,
     <%= name %>
-  });
-  save<%= ucName %>Success(dispatch, <%= name %>, '<%= ucName %> updated successfully');
+  };
 }
 
 export function request<%= ucName %>Id(<%= name %>Id) {
@@ -44,57 +45,33 @@ export function request<%= ucName %>Id(<%= name %>Id) {
       type: types.REQUEST_<%= name.toUpperCase() %>_ID,
       <%= name %>ToDelete:  <%= name %>Id
     });
+    dispatch(showModalSuccess('<%= name %>DetailsModal'));
   };
 }
 
-export function enableSubmit() {
+export function enableSubmit<%= ucName %>() {
   return dispatch => {
     dispatch({
-      type: types.ENABLE_SUBMIT,
-      canSubmit: true
+      type: types.ENABLE_SUBMIT_<%= name.toUpperCase() %>,
+      canSubmit<%= ucName %>: true
     });
   };
 }
 
-export function disableSubmit() {
+export function disableSubmit<%= ucName %>() {
   return dispatch => {
     dispatch({
-      type: types.DISABLE_SUBMIT,
-      canSubmit: false
+      type: types.DISABLE_SUBMIT_<%= name.toUpperCase() %>,
+      canSubmit<%= ucName %>: false
     });
   };
-}
-
-export function saving<%= ucName %>() {
-  return {
-    type : types.SAVING_<%= name.toUpperCase() %>,
-    saving: true
-  };
-}
-
-export function save<%= ucName %>Success(dispatch, messageContent) {
-  dispatch({
-    type : types.SAVE_<%= name.toUpperCase() %>_SUCCESS,
-    saving: false
-  });
-  showAlert(dispatch, messageContent, 'success');
-  dispatch(push('/app/<%= pluralizedName %>'));
-}
-
-export function save<%= ucName %>Error(dispatch, error) {
-  dispatch({
-    type : types.SAVE_<%= name.toUpperCase() %>_ERROR,
-    saving: false
-  });
-  showAlert(dispatch, error.description, 'error');
 }
 
 export function delete<%= ucName %>Success(dispatch, <%= name %>Id) {
-  dispatch({
+  return {
     type: types.DELETE_<%= name.toUpperCase() %>_SUCCESS,
     <%= name %>Id
-  });
-  showAlert(dispatch, '<%= ucName %> removed', 'success');
+  };
 }
 
 export function load<%= pluralizedUcName %>() {
@@ -102,7 +79,7 @@ export function load<%= pluralizedUcName %>() {
     hideAlert(dispatch);
     return <%= name %>Service.load<%= pluralizedUcName %>()
       .then(data => dispatch(load<%= ucName %>Success(data)))
-      .catch(error => showAlert(dispatch, error.description, 'error'));
+      .catch(error => dispatch(showAlertSuccess(error.description, 'error')));
   };
 }
 

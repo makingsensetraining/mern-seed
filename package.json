@@ -93,6 +93,7 @@
     "bootstrap": "^3.3.7",
     "boron": "^0.2.3",
     "config": "^1.25.1",
+    "esprima": "^4.0.0",
     "formsy-react": "^0.18.1",
     "formsy-react-components": "^0.10.1",
     "griddle-react": "^0.7.0",

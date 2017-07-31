@@ -1,6 +1,6 @@
 export default {
-  saving: false,
-  canSubmit: false,
+  savingUser: false,
+  canSubmitUser: false,
   userToDelete: '',
   users: [],
   user: {},

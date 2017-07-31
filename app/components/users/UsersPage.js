@@ -32,7 +32,6 @@ export class UsersPage extends Component {
 
   onClickDelete(userId) {
     this.props.actions.requestUserId(userId);
-    this.props.actions.showModal('userDeleteModal');
   }
 
   handleDelete() {

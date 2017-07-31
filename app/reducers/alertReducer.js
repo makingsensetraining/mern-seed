@@ -1,12 +1,12 @@
-import { SHOW_ALERT, HIDE_ALERT } from '../actions/actionTypes';
+import { SHOW_ALERT_SUCCESS, HIDE_ALERT_SUCCESS } from '../actions/actionTypes';
 import initialState from './initialState';
 
 export const alert = (state = initialState.alert, action) => {
   switch (action.type) {
-    case SHOW_ALERT:
+    case SHOW_ALERT_SUCCESS:
       return action.alert;
 
-    case HIDE_ALERT:
+    case HIDE_ALERT_SUCCESS:
       return action.alert;
 
     default:

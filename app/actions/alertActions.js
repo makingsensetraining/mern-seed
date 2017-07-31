@@ -1,8 +1,8 @@
-import { SHOW_ALERT, HIDE_ALERT } from './actionTypes';
+import { SHOW_ALERT_SUCCESS, HIDE_ALERT_SUCCESS } from './actionTypes';
 
-export function showAlert(dispatch, content, type) {
-  dispatch({
-    type: SHOW_ALERT,
+export function showAlertSuccess(content, type) {
+  return {
+    type: SHOW_ALERT_SUCCESS,
     alert: {
       message: {
         content,
@@ -10,12 +10,12 @@ export function showAlert(dispatch, content, type) {
       },
       show: true
     }
-  });
+  };
 }
 
-export function hideAlert(dispatch) {
-  dispatch({
-    type: HIDE_ALERT,
+export function hideAlertSuccess () {
+  return {
+    type: HIDE_ALERT_SUCCESS,
     alert: {
       message: {
         content: 'hide',
@@ -23,5 +23,17 @@ export function hideAlert(dispatch) {
       },
       show: false
     }
-  });
+  };
+}
+
+export function showAlert(content, type) {
+  return dispatch => {
+    dispatch(showAlertSuccess(content, type));
+  };
+}
+
+export function hideAlert() {
+  return dispatch => {
+    dispatch(hideAlertSuccess());
+  };
 }

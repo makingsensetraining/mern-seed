@@ -30,10 +30,10 @@ class UserAddPage extends Component {
         <h1>Add User</h1>
         <UserForm
           onSave={this.handleSave}
-          saving={this.props.saving}
-          canSubmit={this.props.canSubmit}
-          enableSubmit={this.props.actions.enableSubmit}
-          disableSubmit={this.props.actions.disableSubmit}
+          saving={this.props.savingUser}
+          canSubmit={this.props.canSubmitUser}
+          enableSubmit={this.props.actions.enableSubmitUser}
+          disableSubmit={this.props.actions.disableSubmitUser}
           user={this.props.user}
         />
       </div>
@@ -44,8 +44,8 @@ class UserAddPage extends Component {
 UserAddPage.propTypes = {
   actions: PropTypes.object.isRequired,
   alert: PropTypes.object,
-  saving: PropTypes.bool,
-  canSubmit: PropTypes.bool,
+  savingUser: PropTypes.bool,
+  canSubmitUser: PropTypes.bool,
   user: PropTypes.object
 };
 
@@ -60,8 +60,8 @@ function mapStatesToProps(state, ownProps) {
   return {
     state: state,
     alert: state.reducers.alert,
-    saving: state.reducers.saving,
-    canSubmit: state.reducers.canSubmit,
+    savingUser: state.reducers.savingUser,
+    canSubmitUser: state.reducers.canSubmitUser,
     user: user
   };
 }

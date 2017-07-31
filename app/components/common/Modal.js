@@ -63,7 +63,7 @@ Modal.propTypes = {
   title: PropTypes.string.isRequired,
   body: PropTypes.string,
   footer: PropTypes.string,
-  close: PropTypes.func.isRequired,
+  close: PropTypes.func,
   modal: PropTypes.object.isRequired
 };
 

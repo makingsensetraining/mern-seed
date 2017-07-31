@@ -1,7 +1,7 @@
 import { push } from 'react-router-redux';
 import * as types from './actionTypes';
-import { showModal } from './modalActions';
-import { showAlert, hideAlert } from './alertActions';
+import { showModalSuccess } from './modalActions';
+import { showAlertSuccess, hideAlertSuccess } from './alertActions';
 import userService from '../services/userService';
 
 export function loadUserSuccess(users) {
@@ -11,135 +11,136 @@ export function loadUserSuccess(users) {
   };
 }
 
-export function getUserSuccess(dispatch, user, showUserDetails = false) {
-  dispatch({
+export function getUserSuccess(user) {
+  return {
     type: types.GET_USER_SUCCESS,
     user
-  });
-
-  if (showUserDetails) {
-    showModal('userDetailsModal', dispatch);
-  }
-}
-
-export function savingUser() {
-  return {
-    type : types.SAVING_USER,
-    saving: true
   };
 }
 
-export function saveUserSuccess(dispatch, user, messageContent) {
-  dispatch({
-    type : types.SAVE_USER_SUCCESS,
-    saving: false
-  });
-  showAlert(dispatch, messageContent, 'success');
-  dispatch(push('/app/users'));
+export function savingUser(status = true) {
+  return {
+    type : types.SAVING_USER,
+    savingUser: status
+  };
 }
 
-export function saveUserError(dispatch, user, error) {
-  dispatch({
-    type : types.SAVE_USER_ERROR,
-    saving: false
-  });
-  showAlert(dispatch, error.description, 'error');
-}
-
-export function createUserSuccess(dispatch, user) {
-  dispatch({
+export function createUserSuccess(user) {
+  return {
     type: types.CREATE_USER_SUCCESS,
     user
-  });
-  saveUserSuccess(dispatch, user, 'User created successfully');
+  };
 }
 
-export function updateUserSuccess(dispatch, user) {
-  dispatch({
+export function updateUserSuccess(user) {
+  return {
     type: types.UPDATE_USER_SUCCESS,
     user
-  });
-  saveUserSuccess(dispatch, user, 'User updated successfully');
+  };
 }
 
 export function requestUserId(userId) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch({
       type: types.REQUEST_USER_ID,
       userToDelete: userId
     });
+    dispatch(showModalSuccess('userDeleteModal'));
   };
 }
 
-export function enableSubmit() {
+export function enableSubmitUser() {
   return dispatch => {
     dispatch({
-      type: types.ENABLE_SUBMIT,
-      canSubmit: true
+      type: types.ENABLE_SUBMIT_USER,
+      canSubmitUser: true
     });
   };
 }
 
-export function disableSubmit() {
+export function disableSubmitUser() {
   return dispatch => {
     dispatch({
-      type: types.DISABLE_SUBMIT,
-      canSubmit: false
+      type: types.DISABLE_SUBMIT_USER,
+      canSubmitUser: false
     });
   };
 }
 
-export function deleteUserSuccess(dispatch, userId) {
-  dispatch({
+export function deleteUserSuccess(userId) {
+  return {
     type: types.DELETE_USER_SUCCESS,
     userId
-  });
-  showAlert(dispatch, 'User removed', 'success');
+  };
 }
 
 export function loadUsers() {
   return dispatch => {
-    hideAlert(dispatch);
+    dispatch(hideAlertSuccess());
     return userService.loadUsers()
       .then(data => dispatch(loadUserSuccess(data)))
-      .catch(error => showAlert(dispatch, error.description, 'error'));
+      .catch(error => dispatch(showAlertSuccess(error.description, 'error')));
   };
 }
 
 export function getUser(id, showUserDetails = false) {
   return (dispatch, getState) => {
-    hideAlert(dispatch);
+    dispatch(hideAlertSuccess());
     return userService.getUser(id)
-      .then(user => getUserSuccess(dispatch, user, showUserDetails))
-      .catch(error => showAlert(dispatch, error.description, 'error'));
+      .then(user => {
+        dispatch(getUserSuccess(user));
+        if (showUserDetails) {
+          dispatch(showModalSuccess('userDetailsModal'));
+        }
+      })
+      .catch(error => dispatch(showAlertSuccess(error.description, 'error')));
   };
 }
 
 export function createUser(user) {
   return (dispatch, getState) => {
-    hideAlert(dispatch);
+    dispatch(hideAlertSuccess());
     dispatch(savingUser());
     return userService.createUser(user)
-      .then(createdUser => createUserSuccess(dispatch, createdUser))
-      .catch(error => saveUserError(dispatch, user, error));
+      .then(createdUser => {
+        dispatch(createUserSuccess(createdUser));
+        dispatch(savingUser(false));
+        dispatch(showAlertSuccess('User created successfully', 'success'));
+        dispatch(push('/app/users'));
+      })
+      .catch(error => {
+        dispatch(savingUser(false));
+        dispatch(showAlertSuccess(error.description, 'error'));
+      });
   };
 }
 
 export function updateUser(user) {
   return (dispatch, getState) => {
-    hideAlert(dispatch);
+    dispatch(hideAlertSuccess());
     dispatch(savingUser());
     return userService.updateUser(user)
-      .then(updatedUser => updateUserSuccess(dispatch, updatedUser))
-      .catch(error => saveUserError(dispatch, user, error));
+      .then(updatedUser => {
+        dispatch(updateUserSuccess(updatedUser));
+        dispatch(savingUser(false));
+        dispatch(showAlertSuccess('User updated successfully', 'success'));
+        dispatch(push('/app/users'));
+      })
+      .catch(error => {
+        dispatch(savingUser(false));
+        dispatch(showAlertSuccess(error.description, 'error'));
+      });
   };
 }
 
 export function deleteUser(id) {
   return (dispatch, getState) => {
-    hideAlert(dispatch);
+    dispatch(hideAlertSuccess());
     return userService.deleteUser(id)
-      .then(() => deleteUserSuccess(dispatch, id))
-      .catch(error => showAlert(dispatch, error.description, 'error'));
+      .then(() => {
+        dispatch(deleteUserSuccess(id));
+        dispatch(showAlertSuccess('User removed', 'success'));
+      })
+      .catch(error => dispatch(showAlertSuccess(error.description, 'error')));
   };
 }
