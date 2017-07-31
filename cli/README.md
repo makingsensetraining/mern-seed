@@ -145,16 +145,6 @@ But wait: that's not all. You still need to do a couple of minor changes/additio
 app.use(require('./car/index.js'));
 ```
 
-#### app/services/apiEndpoints.js
-
-```javascript
-export const GET_CARS = '/cars';
-export const GET_CAR = '/cars';
-export const POST_CAR = '/cars';
-export const PUT_CAR = '/cars';
-export const DELETE_CAR = '/cars';
-```
-
 #### app/reducers/index.js
 
 ```javascript

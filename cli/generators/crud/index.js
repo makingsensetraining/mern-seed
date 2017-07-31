@@ -19,12 +19,14 @@ module.exports = class extends CrudGenerator {
   writing() {
     const name = this.options.name.toLowerCase().trim();
     const pluralizedName = pluralize(name);
+    const NAME = name.toUpperCase();
     const data = {
       name,
       ucName: utils.toFirstLetterUpperCase(name),
       pluralizedName,
       pluralizedUcName: utils.toFirstLetterUpperCase(pluralizedName),
-      NAME: name.toUpperCase()
+      NAME,
+      PLURALIZED_NAME: pluralize(NAME)
     };
 
     // Only include API files when needed.
@@ -115,6 +117,13 @@ module.exports = class extends CrudGenerator {
     this.appendTpl(
       this.templatePath('actionTypes.js'),
       this.destinationPath('app/actions/actionTypes.js'),
+      data
+    );
+
+     // API endpoints.
+    this.appendTpl(
+      this.templatePath('apiEndpoints.js'),
+      this.destinationPath('app/services/apiEndpoints.js'),
       data
     );
   }
