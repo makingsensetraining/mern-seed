@@ -1,5 +1,10 @@
+import config from 'config';
 import webpack from 'webpack';
 import path from 'path';
+
+const GLOBALS = {
+  API_BASE_URL: JSON.stringify(process.env.API_BASE_URL || `${config.api.host}:${config.api.port}${config.api.baseUrl}`)
+};
 
 export default {
   devtool: 'inline-source-map', // Inlines SourceMap into orginal file.
@@ -20,6 +25,7 @@ export default {
     hot: true
   },
   plugins: [
+    new webpack.DefinePlugin(GLOBALS),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.LoaderOptionsPlugin({

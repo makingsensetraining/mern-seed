@@ -49,3 +49,5 @@ global.navigator = {
 };
 
 documentRef = document;  //eslint-disable-line no-undef
+
+API_BASE_URL = 'http://localhost:3000/api';

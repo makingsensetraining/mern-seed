@@ -5,10 +5,10 @@ import path from 'path';
 import config from '../webpack.config';
 import open from 'open';
 import mongodbConnection from './database/mongodb';
+import apiConfig from 'config';
 
 /* eslint-disable no-console */
 
-const port = 3000;
 const app = express();
 const compiler = webpack(config);
 
@@ -27,8 +27,8 @@ app.get('/*', (req, res) => {
 mongodbConnection.once('open', () => {
   console.log('Mongodb server connected.');
 
-  app.listen(port, (err) => {
+  app.listen(apiConfig.api.port, (err) => {
     if (err) return console.log(err);
-    open(`http://localhost:${port}`);
+    open(`${apiConfig.api.host}:${apiConfig.api.port}`);
   });
 });
