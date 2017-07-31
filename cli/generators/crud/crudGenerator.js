@@ -1,5 +1,6 @@
 const Generator = require('yeoman-generator');
 const ejs = require('ejs');
+const program = require("ast-query");
 
 module.exports = class extends Generator {
   constructor(args, opts) {
@@ -19,5 +20,41 @@ module.exports = class extends Generator {
         }
       );
     });
+  }
+
+  updateReducersConfiguration(indexDestinationPath, initialStateDestinationPath, data) {
+    this.fs.copy(
+        indexDestinationPath,
+        indexDestinationPath,
+        {
+          process: (content) => {
+
+            var tree = program(content.toString(), null, {sourceType: 'module'});
+            var combineReducersArguments = tree.callExpression('combineReducers').arguments.at(0);
+
+            tree.body.prepend(`import { ${data.pluralizedName}, ${data.name}} from './${data.name}Reducer';`);
+            combineReducersArguments.key(data.name).value(data.name);
+            combineReducersArguments.key(data.pluralizedName).value(data.pluralizedName);
+
+            return tree.toString();
+          }
+        }
+      );
+
+    this.fs.copy(
+      initialStateDestinationPath,
+      initialStateDestinationPath,
+      {
+        process: (content) => {
+          var tree = program(content.toString(), null, {sourceType: 'module'});
+          var exportDefault = tree.var('exportDefault').value();
+
+          exportDefault.key(data.name).value('{}');
+          exportDefault.key(data.pluralizedName).value('[]');
+
+          return tree.toString();
+        }
+      }
+    );
   }
 }

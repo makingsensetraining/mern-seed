@@ -113,18 +113,24 @@ module.exports = class extends CrudGenerator {
       data
     );
 
-    // Action types.
+    // Update action types.
     this.appendTpl(
       this.templatePath('actionTypes.js'),
       this.destinationPath('app/actions/actionTypes.js'),
       data
     );
 
-     // API endpoints.
+     // Update API endpoints.
     this.appendTpl(
       this.templatePath('apiEndpoints.js'),
       this.destinationPath('app/services/apiEndpoints.js'),
       data
     );
+
+    // Update reducers configuration.
+    this.updateReducersConfiguration(
+      this.destinationPath('app/reducers/index.js'), 
+      this.destinationPath('app/reducers/initialState.js'), 
+      data);
   }
 };
