@@ -20,6 +20,7 @@
     "yeoman-generator"
   ],
   "dependencies": {
+    "ast-query": "^2.0.0",
     "chalk": "~1.1.3",
     "pluralize": "~3.1.0",
     "yeoman-generator": "~1.0.0",
