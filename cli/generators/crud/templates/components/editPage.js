@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import autoBind from 'react-autobind';
 import * as <%= name %>Actions from '../../actions/<%= name %>Actions';
 import * as alertActions from '../../actions/alertActions';
@@ -15,6 +16,12 @@ class <%= ucName %>EditPage extends Component {
     props.actions.get<%= ucName %>(props.params.id);
   }
 
+  componentWillUpdate(nextProps) {
+    if (nextProps.alert !== this.props.alert) {
+      alertMessage(nextProps.alert);
+    }
+  }
+
   handleSave(<%= name %>) {
     let data = {
       id: this.props.<%= name %>.id,
@@ -22,12 +29,6 @@ class <%= ucName %>EditPage extends Component {
     };
 
     this.props.actions.update<%= ucName %>(data);
-  }
-
-  componentWillUpdate(nextProps) {
-    if (nextProps.alert !== this.props.alert) {
-      alertMessage(nextProps.alert);
-    }
   }
 
   render() {
@@ -59,10 +60,10 @@ class <%= ucName %>EditPage extends Component {
 function mapStatesToProps(state, ownProps) {
   return {
     state: state.reducers,
-    alert: state.alert,
-    saving<%= ucName %>: state.saving<%= ucName %>,
+    alert: state.reducers.alert,
+    saving<%= ucName %>: state.reducers.saving<%= ucName %>,
     canSubmit<%= ucName %>: state.reducers.canSubmit<%= ucName %>,
-    <%= name %>: state.<%= name %>
+    <%= name %>: state.reducers.<%= name %>
   };
 }
 

@@ -131,6 +131,7 @@ module.exports = class extends CrudGenerator {
     this.updateReducersConfiguration(
       this.destinationPath('app/reducers/index.js'),
       this.destinationPath('app/reducers/initialState.js'),
-      data);
+      data
+    );
   }
 };

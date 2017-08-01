@@ -1,20 +1,19 @@
 const exportDefault = {
-  alert: {
-    message : {
-      content : '',
-      type    : '',
+    alert: {
+        message: {
+            content: '',
+            type: ''
+        },
+        show: false
     },
-    show: false
-  },
-  modal: {
-    id: '',
-    show: false
-  },
-  savingUser: false,
-  canSubmitUser: false,
-  userToDelete: '',
-  users: [],
-  user: {},
+    modal: {
+        id: '',
+        show: false
+    },
+    savingUser: false,
+    canSubmitUser: false,
+    userToDelete: '',
+    users: [],
+    user: {}
 };
-
 export default exportDefault;

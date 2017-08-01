@@ -45,7 +45,7 @@ export function request<%= ucName %>Id(<%= name %>Id) {
       type: types.REQUEST_<%= name.toUpperCase() %>_ID,
       <%= name %>ToDelete:  <%= name %>Id
     });
-    dispatch(showModalSuccess('<%= name %>DetailsModal'));
+    dispatch(showModalSuccess('<%= name %>DeleteModal'));
   };
 }
 
@@ -67,7 +67,7 @@ export function disableSubmit<%= ucName %>() {
   };
 }
 
-export function delete<%= ucName %>Success(dispatch, <%= name %>Id) {
+export function delete<%= ucName %>Success(<%= name %>Id) {
   return {
     type: types.DELETE_<%= name.toUpperCase() %>_SUCCESS,
     <%= name %>Id

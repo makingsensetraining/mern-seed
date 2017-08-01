@@ -83,8 +83,8 @@ function mapStatesToProps(state, ownProps) {
     alert: state.reducers.alert,
     modal: state.reducers.modal,
     <%= name %>ToDelete: state.reducers.<%= name %>ToDelete,
-    <%= pluralizedName %>: state.<%= pluralizedName %>.<%= pluralizedName %>,
-    <%= name %>: state.<%= name %>
+    <%= pluralizedName %>: state.reducers.<%= pluralizedName %>.<%= pluralizedName %>,
+    <%= name %>: state.reducers.<%= name %>
   };
 }
 
