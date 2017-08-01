@@ -49,3 +49,36 @@ export const user = (state = initialState.user, action) => {
       return state;
   }
 };
+
+export const savingUser = (state = initialState.savingUser, action) => {
+  switch (action.type) {
+    case types.SAVING_USER:
+      return action.savingUser;
+
+    default:
+      return state;
+  }
+};
+
+export const userToDelete = (state = initialState.userToDelete, action) => {
+  switch (action.type) {
+    case types.REQUEST_USER_ID:
+      return action.userToDelete;
+
+    default:
+      return state;
+  }
+};
+
+export const canSubmitUser = (state = initialState.canSubmitUser, action) => {
+  switch (action.type) {
+    case types.ENABLE_SUBMIT_USER:
+      return action.canSubmitUser;
+
+    case types.DISABLE_SUBMIT_USER:
+      return action.canSubmitUser;
+
+    default:
+      return state;
+  }
+};

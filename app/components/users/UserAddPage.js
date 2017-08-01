@@ -1,35 +1,27 @@
-import React, { PropTypes } from 'react';
-import { browserHistory } from 'react-router';
+import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import toastr from 'toastr';
+import autoBind from 'react-autobind';
 import * as userActions from '../../actions/userActions';
+import * as alertActions from '../../actions/alertActions';
 import UserForm from './UserForm';
+import { alertMessage } from '../../helpers';
 
-class UserAddPage extends React.Component {
+class UserAddPage extends Component {
   constructor(props, context) {
     super(props, context);
 
-    this.state = {
-      user: Object.assign({}, props.user),
-      saving: false
-    };
+    autoBind(this);
+  }
 
-    this.handleSave = this.handleSave.bind(this);
+  componentWillUpdate(nextProps) {
+    if (nextProps.alert !== this.props.alert) {
+      alertMessage(nextProps.alert);
+    }
   }
 
   handleSave(user) {
-    this.setState({ saving: true });
-    this.props.actions.createUser(user)
-      .then(() => {
-        this.setState({ saving: false });
-        toastr.success('User created successfully');
-        browserHistory.push('/app/users');
-      })
-      .catch(error => {
-        this.setState({ saving: false });
-        toastr.error(error.description);
-      });
+    this.props.actions.createUser(user);
   }
 
   render() {
@@ -38,8 +30,11 @@ class UserAddPage extends React.Component {
         <h1>Add User</h1>
         <UserForm
           onSave={this.handleSave}
-          saving={this.state.saving}
-          user={this.state.user}
+          saving={this.props.savingUser}
+          canSubmit={this.props.canSubmitUser}
+          enableSubmit={this.props.actions.enableSubmitUser}
+          disableSubmit={this.props.actions.disableSubmitUser}
+          user={this.props.user}
         />
       </div>
     );
@@ -48,6 +43,9 @@ class UserAddPage extends React.Component {
 
 UserAddPage.propTypes = {
   actions: PropTypes.object.isRequired,
+  alert: PropTypes.object,
+  savingUser: PropTypes.bool,
+  canSubmitUser: PropTypes.bool,
   user: PropTypes.object
 };
 
@@ -61,13 +59,16 @@ function mapStatesToProps(state, ownProps) {
 
   return {
     state: state,
+    alert: state.reducers.alert,
+    savingUser: state.reducers.savingUser,
+    canSubmitUser: state.reducers.canSubmitUser,
     user: user
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(userActions, dispatch)
+    actions: bindActionCreators({...userActions, ...alertActions}, dispatch)
   };
 }
 

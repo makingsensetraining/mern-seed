@@ -1,59 +1,41 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
-import toastr from 'toastr';
+import autoBind from 'react-autobind';
 import * as <%= name %>Actions from '../../actions/<%= name %>Actions';
+import * as modalActions from '../../actions/modalActions';
+import * as alertActions from '../../actions/alertActions';
 import <%= ucName %>List from './<%= ucName %>List';
 import Modal from '../common/Modal';
 import ConfirmModal from '../common/ConfirmModal';
+import { alertMessage } from '../../helpers';
 
-export class <%= ucName %>Page extends React.Component {
+export class <%= ucName %>Page extends Component {
   constructor(props, context) {
     super(props, context);
 
-    this.state = {
-      <%= name %>: Object.assign({}, props.<%= name %>)
-    };
-
-    this.onClickDetail = this.onClickDetail.bind(this);
-    this.onClickDelete = this.onClickDelete.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
+    autoBind(this);
 
     props.actions.load<%= pluralizedUcName %>();
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      <%= name %>: nextProps.<%= name %>
-    });
+  componentWillUpdate(nextProps) {
+    if (nextProps.alert !== this.props.alert) {
+      alertMessage(nextProps.alert);
+    }
   }
 
   onClickDetail(<%= name %>Id) {
-    this.props.actions.get<%= ucName %>(<%= name %>Id)
-      .then(() => {
-        this.modal.open();
-      })
-      .catch(() => {
-        toastr.error('The selected <%= name %> does not exist.');
-      });
+    this.props.actions.get<%= ucName %>(<%= name %>Id, true);
   }
 
   onClickDelete(<%= name %>Id) {
-    this.setState({
-      <%= name %>ToDelete: <%= name %>Id
-    });
-    this.<%= name %>DeleteModal.open();
+    this.props.actions.request<%= ucName %>Id(<%= name %>Id);
   }
 
   handleDelete() {
-    this.props.actions.delete<%= ucName %>(this.state.<%= name %>ToDelete)
-      .then(() => {
-        toastr.success('<%= ucName %> removed');
-      })
-      .catch(error => {
-        toastr.error(error);
-      });
+    this.props.actions.delete<%= ucName %>(this.props.<%= name %>ToDelete);
   }
 
   render() {
@@ -64,16 +46,23 @@ export class <%= ucName %>Page extends React.Component {
         <<%= ucName %>List
           <%= pluralizedName %>={this.props.<%= pluralizedName %>}
           onClickDetail={this.onClickDetail}
-          onClickDelete={this.onClickDelete} />
+          onClickDelete={this.onClickDelete}
+        />
         <Modal
+          id="<%= name %>DetailsModal"
           title="<%= ucName %> Info"
-          body={this.state.<%= name %>.name}
-          ref={(child) => { this.modal = child; }} />
+          body={this.props.<%= name %>.name}
+          modal={this.props.modal}
+          close={this.props.actions.hideModal}
+        />
         <ConfirmModal
+          id="<%= name %>DeleteModal"
           title="Delete <%= ucName %>"
           body="Are you sure you want to delete this <%= name %>?"
-          ref={(child) => { this.<%= name %>DeleteModal = child; }}
-          confirm={this.handleDelete} />
+          modal={this.props.modal}
+          close={this.props.actions.hideModal}
+          confirm={this.handleDelete}
+        />
       </div>
     );
   }
@@ -81,21 +70,27 @@ export class <%= ucName %>Page extends React.Component {
 
 <%= ucName %>Page.propTypes = {
   actions: PropTypes.object,
+  alert: PropTypes.object,
+  modal: PropTypes.object,
+  <%= name %>ToDelete: PropTypes.string,
   <%= pluralizedName %>: PropTypes.array.isRequired,
   <%= name %>: PropTypes.object.isRequired
 };
 
 function mapStatesToProps(state, ownProps) {
   return {
-    state: state,
-    <%= pluralizedName %>: state.<%= pluralizedName %>.<%= pluralizedName %>,
-    <%= name %>: state.<%= name %>
+    state: state.reducers,
+    alert: state.reducers.alert,
+    modal: state.reducers.modal,
+    <%= name %>ToDelete: state.reducers.<%= name %>ToDelete,
+    <%= pluralizedName %>: state.reducers.<%= pluralizedName %>.<%= pluralizedName %>,
+    <%= name %>: state.reducers.<%= name %>
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(<%= name %>Actions, dispatch)
+    actions: bindActionCreators({...<%= name %>Actions, ...modalActions, ...alertActions}, dispatch)
   };
 }
 

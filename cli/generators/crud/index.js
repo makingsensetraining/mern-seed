@@ -120,7 +120,7 @@ module.exports = class extends CrudGenerator {
       data
     );
 
-     // Update API endpoints.
+    // Update API endpoints.
     this.appendTpl(
       this.templatePath('apiEndpoints.js'),
       this.destinationPath('app/services/apiEndpoints.js'),
@@ -129,8 +129,9 @@ module.exports = class extends CrudGenerator {
 
     // Update reducers configuration.
     this.updateReducersConfiguration(
-      this.destinationPath('app/reducers/index.js'), 
-      this.destinationPath('app/reducers/initialState.js'), 
-      data);
+      this.destinationPath('app/reducers/index.js'),
+      this.destinationPath('app/reducers/initialState.js'),
+      data
+    );
   }
 };
