@@ -50,16 +50,10 @@ export const <%= name %> = (state = initialState.<%= name %>, action) => {
   }
 };
 
-export const saving = (state = initialState.saving, action) => {
+export const saving<%= ucName %> = (state = initialState.saving<%= ucName %>, action) => {
   switch (action.type) {
     case types.SAVING_<%= name.toUpperCase() %>:
-      return action.saving;
-
-    case types.SAVE_<%= name.toUpperCase() %>_SUCCESS:
-      return action.saving;
-
-    case types.SAVE_<%= name.toUpperCase() %>_ERROR:
-      return action.saving;
+      return action.saving<%= ucName %>;
 
     default:
       return state;
@@ -76,13 +70,13 @@ export const <%= name %>ToDelete = (state = initialState.<%= name %>ToDelete, ac
   }
 };
 
-export const canSubmit = (state = initialState.canSubmit, action) => {
+export const canSubmit<%= ucName %> = (state = initialState.canSubmit<%= ucName %>, action) => {
   switch (action.type) {
-    case types.ENABLE_SUBMIT:
-      return action.canSubmit;
+    case types.ENABLE_SUBMIT_<%= name.toUpperCase() %>:
+      return action.canSubmit<%= ucName %>;
 
-    case types.DISABLE_SUBMIT:
-      return action.canSubmit;
+    case types.DISABLE_SUBMIT_<%= name.toUpperCase() %>:
+      return action.canSubmit<%= ucName %>;
 
     default:
       return state;

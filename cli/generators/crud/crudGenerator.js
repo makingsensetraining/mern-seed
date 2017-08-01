@@ -35,6 +35,9 @@ module.exports = class extends Generator {
           tree.body.prepend(`import { ${data.pluralizedName}, ${data.name}} from './${data.name}Reducer';`);
           combineReducersArguments.key(data.name).value(data.name);
           combineReducersArguments.key(data.pluralizedName).value(data.pluralizedName);
+          combineReducersArguments.key(`saving${data.ucName}`).value(`saving${data.ucName}`);
+          combineReducersArguments.key(`canSubmit${data.ucName}`).value(`canSubmit${data.ucName}`);
+          combineReducersArguments.key(`${data.name}ToDelete`).value(`${data.name}ToDelete`);
 
           return tree.toString();
         }
@@ -51,6 +54,9 @@ module.exports = class extends Generator {
 
           exportDefault.key(data.name).value('{}');
           exportDefault.key(data.pluralizedName).value('[]');
+          exportDefault.key(`saving${data.ucName}`).value(false);
+          exportDefault.key(`canSubmit${data.ucName}`).value(false);
+          exportDefault.key(`${data.name}ToDelete`).value('');
 
           return tree.toString();
         }

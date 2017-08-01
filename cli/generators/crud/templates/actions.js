@@ -18,10 +18,10 @@ export function get<%= ucName %>Success(<%= name %>) {
   };
 }
 
-export function saving<%= ucName %>() {
+export function saving<%= ucName %>(status = true) {
   return {
     type : types.SAVING_<%= name.toUpperCase() %>,
-    saving<%= ucName %>: true
+    saving<%= ucName %>: status
   };
 }
 
@@ -76,7 +76,7 @@ export function delete<%= ucName %>Success(dispatch, <%= name %>Id) {
 
 export function load<%= pluralizedUcName %>() {
   return dispatch => {
-    hideAlert(dispatch);
+    dispatch(hideAlertSuccess());
     return <%= name %>Service.load<%= pluralizedUcName %>()
       .then(data => dispatch(load<%= ucName %>Success(data)))
       .catch(error => dispatch(showAlertSuccess(error.description, 'error')));
@@ -85,38 +85,62 @@ export function load<%= pluralizedUcName %>() {
 
 export function get<%= ucName %>(id, show<%= name.toUpperCase() %>Details = false) {
   return (dispatch, getState) => {
-    hideAlert(dispatch);
+    dispatch(hideAlertSuccess());
     return <%= name %>Service.get<%= ucName %>(id)
-      .then(<%= name %> => get<%= ucName %>Success(dispatch, <%= name %>, show<%= name.toUpperCase() %>Details))
-      .catch(error => showAlert(dispatch, error.description, 'error'));
+      .then(<%= name %> => {
+        dispatch(get<%= ucName %>Success(<%= name %>));
+        if (show<%= name.toUpperCase() %>Details) {
+          dispatch(showModalSuccess('<%= name %>DetailsModal'));
+        }
+      })
+      .catch(error => dispatch(showAlertSuccess(error.description, 'error')));
   };
 }
 
 export function create<%= ucName %>(<%= name %>) {
   return (dispatch, getState) => {
-    hideAlert(dispatch);
+    dispatch(hideAlertSuccess());
     dispatch(saving<%= ucName %>());
     return <%= name %>Service.create<%= ucName %>(<%= name %>)
-      .then(created<%= ucName %> => create<%= ucName %>Success(dispatch, created<%= ucName %>))
-      .catch(error => save<%= ucName %>Error(dispatch, <%= name %>, error));
+      .then(created<%= ucName %> => {
+        dispatch(create<%= ucName %>Success(created<%= ucName %>));
+        dispatch(saving<%= ucName %>(false));
+        dispatch(showAlertSuccess('<%= ucName %> created successfully', 'success'));
+        dispatch(push('/app/<%= pluralizedName %>'));
+      })
+      .catch(error => {
+        dispatch(saving<%= ucName %>(false));
+        dispatch(showAlertSuccess(error.description, 'error'));
+      });
   };
 }
 
 export function update<%= ucName %>(<%= name %>) {
   return (dispatch, getState) => {
-    hideAlert(dispatch);
+    dispatch(hideAlertSuccess());
     dispatch(saving<%= ucName %>());
     return <%= name %>Service.update<%= ucName %>(<%= name %>)
-      .then(updated<%= ucName %> => update<%= ucName %>Success(dispatch, updated<%= ucName %>))
-      .catch(error => save<%= ucName %>Error(dispatch, <%= name %>, error));
+      .then(updated<%= ucName %> => {
+        dispatch(update<%= ucName %>Success(updated<%= ucName %>));
+        dispatch(saving<%= ucName %>(false));
+        dispatch(showAlertSuccess('<%= ucName %> updated successfully', 'success'));
+        dispatch(push('/app/<%= pluralizedName %>'));
+      })
+      .catch(error => {
+        dispatch(saving<%= ucName %>(false));
+        dispatch(showAlertSuccess(error.description, 'error'));
+      });
   };
 }
 
 export function delete<%= ucName %>(id) {
   return (dispatch, getState) => {
-    hideAlert(dispatch);
+    dispatch(hideAlertSuccess());
     return <%= name %>Service.delete<%= ucName %>(id)
-      .then(() => delete<%= ucName %>Success(dispatch, id))
-      .catch(error => showAlert(dispatch, error.description, 'error'));
+      .then(() => {
+        dispatch(delete<%= ucName %>Success(id));
+        dispatch(showAlertSuccess('<%= ucName %> removed', 'success'));
+      })
+      .catch(error => dispatch(showAlertSuccess(error.description, 'error')));
   };
 }

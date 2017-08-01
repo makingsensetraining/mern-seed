@@ -36,10 +36,10 @@ class <%= ucName %>EditPage extends Component {
         <h1>Edit <%= ucName %></h1>
         <<%= ucName %>Form
           onSave={this.handleSave}
-          saving={this.props.saving}
-          canSubmit={this.props.canSubmit}
-          enableSubmit={this.props.actions.enableSubmit}
-          disableSubmit={this.props.actions.disableSubmit}
+          saving={this.props.saving<%= ucName %>}
+          canSubmit={this.props.canSubmit<%= ucName %>}
+          enableSubmit={this.props.actions.enableSubmit<%= ucName %>}
+          disableSubmit={this.props.actions.disableSubmit<%= ucName %>}
           <%= name %>={this.props.<%= name %>}
         />
       </div>
@@ -50,8 +50,8 @@ class <%= ucName %>EditPage extends Component {
 <%= ucName %>EditPage.propTypes = {
   actions: PropTypes.object.isRequired,
   alert: PropTypes.object,
-  saving: PropTypes.bool,
-  canSubmit: PropTypes.bool,
+  saving<%= ucName %>: PropTypes.bool,
+  canSubmit<%= ucName %>: PropTypes.bool,
   <%= name %>: PropTypes.object,
   params: PropTypes.object
 };
@@ -60,8 +60,8 @@ function mapStatesToProps(state, ownProps) {
   return {
     state: state.reducers,
     alert: state.alert,
-    saving: state.saving,
-    canSubmit: state.reducers.canSubmit,
+    saving<%= ucName %>: state.saving<%= ucName %>,
+    canSubmit<%= ucName %>: state.reducers.canSubmit<%= ucName %>,
     <%= name %>: state.<%= name %>
   };
 }

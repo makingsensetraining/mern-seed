@@ -9,6 +9,7 @@ import * as alertActions from '../../actions/alertActions';
 import <%= ucName %>List from './<%= ucName %>List';
 import Modal from '../common/Modal';
 import ConfirmModal from '../common/ConfirmModal';
+import { alertMessage } from '../../helpers';
 
 export class <%= ucName %>Page extends Component {
   constructor(props, context) {
@@ -31,7 +32,6 @@ export class <%= ucName %>Page extends Component {
 
   onClickDelete(<%= name %>Id) {
     this.props.actions.request<%= ucName %>Id(<%= name %>Id);
-    this.props.actions.showModal('<%= name %>DetailsModal');
   }
 
   handleDelete() {
