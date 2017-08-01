@@ -1,5 +1,5 @@
-import {combineReducers} from 'redux';
-import {users, user, canSubmitUser, savingUser, userToDelete} from './userReducer';
+import { combineReducers } from 'redux';
+import { users, user, canSubmitUser, savingUser, userToDelete } from './userReducer';
 import { modal } from './modalReducer';
 import { alert } from './alertReducer';
 
@@ -12,5 +12,4 @@ const rootReducer = combineReducers({
   savingUser,
   userToDelete
 });
-
 export default rootReducer;

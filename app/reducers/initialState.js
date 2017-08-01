@@ -1,4 +1,4 @@
-export default {
+const exportDefault = {
   alert: {
     message : {
       content : '',
@@ -16,3 +16,5 @@ export default {
   users: [],
   user: {},
 };
+
+export default exportDefault;

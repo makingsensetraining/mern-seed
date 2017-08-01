@@ -108,6 +108,9 @@ Produces:
 Updates:
 
 - `app/actions/actionTypes.js`
+- `app/services/apiEndpoints.js`
+- `app/reducers/index.js`
+- `app/reducers/initialState.js`
 
 Example with `--no-api`:
 
@@ -130,6 +133,9 @@ Produces:
 Updates:
 
 - `app/actions/actionTypes.js`
+- `app/services/apiEndpoints.js`
+- `app/reducers/index.js`
+- `app/reducers/initialState.js`
 
 **Pro tip**: If you want to avoid the prompt when updating existing files use the option `--force`:
 
@@ -144,31 +150,6 @@ But wait: that's not all. You still need to do a couple of minor changes/additio
 ```javascript
 app.use(require('./car/index.js'));
 ```
-
-#### app/reducers/index.js
-
-```javascript
-import { cars, car } from './carReducer';
-// ...
-const rootReducer = combineReducers({
-    // ...
-    cars,
-    car,
-    // ...
-});
-```
-
-#### app/reducers/initialState.js
-
-```javascript
-export default {
-    // ...
-    cars: [],
-    car: {},
-    // ...
-};
-```
-
 #### app/routes.js
 
 ```javascript
