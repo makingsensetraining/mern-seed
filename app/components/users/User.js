@@ -1,12 +1,14 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
-import autoBind from 'react-autobind';
+import autoBind from '../../lib/autoBind';
 
 class User extends Component {
   constructor(props, context) {
     super(props, context);
 
-    autoBind(this);
+    autoBind(this, {
+      bindOnly: ['onClickDetail', 'onClickDelete']
+    });
   }
 
   onClickDetail(event) {

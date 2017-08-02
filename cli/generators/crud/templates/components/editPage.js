@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import autoBind from 'react-autobind';
+import autoBind from '../../lib/autoBind';
 import * as <%= name %>Actions from '../../actions/<%= name %>Actions';
 import * as alertActions from '../../actions/alertActions';
 import { alertMessage } from '../../helpers';
@@ -11,7 +11,9 @@ class <%= ucName %>EditPage extends Component {
   constructor(props, context) {
     super(props, context);
 
-    autoBind(this);
+    autoBind(this, {
+      bindOnly: ['handleSave']
+    });
 
     props.actions.get<%= ucName %>(props.params.id);
   }
@@ -38,9 +40,6 @@ class <%= ucName %>EditPage extends Component {
         <<%= ucName %>Form
           onSave={this.handleSave}
           saving={this.props.saving<%= ucName %>}
-          canSubmit={this.props.canSubmit<%= ucName %>}
-          enableSubmit={this.props.actions.enableSubmit<%= ucName %>}
-          disableSubmit={this.props.actions.disableSubmit<%= ucName %>}
           <%= name %>={this.props.<%= name %>}
         />
       </div>
@@ -52,7 +51,6 @@ class <%= ucName %>EditPage extends Component {
   actions: PropTypes.object.isRequired,
   alert: PropTypes.object,
   saving<%= ucName %>: PropTypes.bool,
-  canSubmit<%= ucName %>: PropTypes.bool,
   <%= name %>: PropTypes.object,
   params: PropTypes.object
 };
@@ -62,7 +60,6 @@ function mapStatesToProps(state, ownProps) {
     state: state.reducers,
     alert: state.reducers.alert,
     saving<%= ucName %>: state.reducers.saving<%= ucName %>,
-    canSubmit<%= ucName %>: state.reducers.canSubmit<%= ucName %>,
     <%= name %>: state.reducers.<%= name %>
   };
 }

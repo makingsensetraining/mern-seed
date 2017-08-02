@@ -49,24 +49,6 @@ export function request<%= ucName %>Id(<%= name %>Id) {
   };
 }
 
-export function enableSubmit<%= ucName %>() {
-  return dispatch => {
-    dispatch({
-      type: types.ENABLE_SUBMIT_<%= name.toUpperCase() %>,
-      canSubmit<%= ucName %>: true
-    });
-  };
-}
-
-export function disableSubmit<%= ucName %>() {
-  return dispatch => {
-    dispatch({
-      type: types.DISABLE_SUBMIT_<%= name.toUpperCase() %>,
-      canSubmit<%= ucName %>: false
-    });
-  };
-}
-
 export function delete<%= ucName %>Success(<%= name %>Id) {
   return {
     type: types.DELETE_<%= name.toUpperCase() %>_SUCCESS,

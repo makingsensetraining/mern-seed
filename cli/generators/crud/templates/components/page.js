@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
-import autoBind from 'react-autobind';
+import autoBind from '../../lib/autoBind';
 import * as <%= name %>Actions from '../../actions/<%= name %>Actions';
 import * as modalActions from '../../actions/modalActions';
 import * as alertActions from '../../actions/alertActions';
@@ -15,7 +15,9 @@ export class <%= ucName %>Page extends Component {
   constructor(props, context) {
     super(props, context);
 
-    autoBind(this);
+    autoBind(this, {
+      bindOnly: ['onClickDetail', 'onClickDelete', 'handleDelete']
+    });
 
     props.actions.load<%= pluralizedUcName %>();
   }

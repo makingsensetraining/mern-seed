@@ -2,7 +2,6 @@ import { combineReducers } from 'redux';
 import {
     users,
     user,
-    canSubmitUser,
     savingUser,
     userToDelete
 } from './userReducer';
@@ -13,7 +12,6 @@ const rootReducer = combineReducers({
     alert,
     users,
     user,
-    canSubmitUser,
     savingUser,
     userToDelete
 });

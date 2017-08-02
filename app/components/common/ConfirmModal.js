@@ -1,12 +1,14 @@
 import React, { PropTypes, Component } from 'react';
 import {DropModal} from 'boron';
-import autoBind from 'react-autobind';
+import autoBind from '../../lib/autoBind';
 
 class ConfirmModal extends Component {
   constructor(props, context){
     super(props, context);
 
-    autoBind(this);
+    autoBind(this, {
+      bindOnly: ['confirm', 'close']
+    });
   }
 
   componentWillUpdate(nextProps) {

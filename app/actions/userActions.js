@@ -49,24 +49,6 @@ export function requestUserId(userId) {
   };
 }
 
-export function enableSubmitUser() {
-  return dispatch => {
-    dispatch({
-      type: types.ENABLE_SUBMIT_USER,
-      canSubmitUser: true
-    });
-  };
-}
-
-export function disableSubmitUser() {
-  return dispatch => {
-    dispatch({
-      type: types.DISABLE_SUBMIT_USER,
-      canSubmitUser: false
-    });
-  };
-}
-
 export function deleteUserSuccess(userId) {
   return {
     type: types.DELETE_USER_SUCCESS,

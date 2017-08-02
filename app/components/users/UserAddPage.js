@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import autoBind from 'react-autobind';
+import autoBind from '../../lib/autoBind';
 import * as userActions from '../../actions/userActions';
 import * as alertActions from '../../actions/alertActions';
 import UserForm from './UserForm';
@@ -11,7 +11,9 @@ class UserAddPage extends Component {
   constructor(props, context) {
     super(props, context);
 
-    autoBind(this);
+    autoBind(this, {
+      bindOnly: ['handleSave']
+    });
   }
 
   componentWillUpdate(nextProps) {
@@ -31,9 +33,6 @@ class UserAddPage extends Component {
         <UserForm
           onSave={this.handleSave}
           saving={this.props.savingUser}
-          canSubmit={this.props.canSubmitUser}
-          enableSubmit={this.props.actions.enableSubmitUser}
-          disableSubmit={this.props.actions.disableSubmitUser}
           user={this.props.user}
         />
       </div>
@@ -45,7 +44,6 @@ UserAddPage.propTypes = {
   actions: PropTypes.object.isRequired,
   alert: PropTypes.object,
   savingUser: PropTypes.bool,
-  canSubmitUser: PropTypes.bool,
   user: PropTypes.object
 };
 
@@ -61,7 +59,6 @@ function mapStatesToProps(state, ownProps) {
     state: state,
     alert: state.reducers.alert,
     savingUser: state.reducers.savingUser,
-    canSubmitUser: state.reducers.canSubmitUser,
     user: user
   };
 }

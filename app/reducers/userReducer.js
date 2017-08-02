@@ -70,15 +70,3 @@ export const userToDelete = (state = initialState.userToDelete, action) => {
   }
 };
 
-export const canSubmitUser = (state = initialState.canSubmitUser, action) => {
-  switch (action.type) {
-    case types.ENABLE_SUBMIT_USER:
-      return action.canSubmitUser;
-
-    case types.DISABLE_SUBMIT_USER:
-      return action.canSubmitUser;
-
-    default:
-      return state;
-  }
-};

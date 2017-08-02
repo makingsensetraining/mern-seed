@@ -70,15 +70,3 @@ export const <%= name %>ToDelete = (state = initialState.<%= name %>ToDelete, ac
   }
 };
 
-export const canSubmit<%= ucName %> = (state = initialState.canSubmit<%= ucName %>, action) => {
-  switch (action.type) {
-    case types.ENABLE_SUBMIT_<%= name.toUpperCase() %>:
-      return action.canSubmit<%= ucName %>;
-
-    case types.DISABLE_SUBMIT_<%= name.toUpperCase() %>:
-      return action.canSubmit<%= ucName %>;
-
-    default:
-      return state;
-  }
-};

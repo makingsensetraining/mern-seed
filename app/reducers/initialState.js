@@ -11,9 +11,12 @@ const exportDefault = {
         show: false
     },
     savingUser: false,
-    canSubmitUser: false,
     userToDelete: '',
     users: [],
-    user: {}
+    user: {},
+    car: {},
+    cars: [],
+    savingCar: false,
+    carToDelete: ''
 };
 export default exportDefault;
