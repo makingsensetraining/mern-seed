@@ -1,10 +1,10 @@
-import { combineReducers } from 'redux';
 import {
-    users,
-    user,
-    savingUser,
-    userToDelete
+  users,
+  user,
+  savingUser,
+  userToDelete
 } from './userReducer';
+import { combineReducers } from 'redux';
 import { modal } from './modalReducer';
 import { alert } from './alertReducer';
 const rootReducer = combineReducers({

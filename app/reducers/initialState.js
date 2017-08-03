@@ -1,22 +1,17 @@
-const exportDefault = {
-    alert: {
-        message: {
-            content: '',
-            type: ''
-        },
-        show: false
+export default {
+  alert: {
+    message: {
+      content: '',
+      type: ''
     },
-    modal: {
-        id: '',
-        show: false
-    },
-    savingUser: false,
-    userToDelete: '',
-    users: [],
-    user: {},
-    car: {},
-    cars: [],
-    savingCar: false,
-    carToDelete: ''
+    show: false
+  },
+  modal: {
+    id: '',
+    show: false
+  },
+  savingUser: false,
+  userToDelete: '',
+  users: [],
+  user: {},
 };
-export default exportDefault;

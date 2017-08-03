@@ -6,6 +6,7 @@ import config from '../webpack.config';
 import open from 'open';
 import mongodbConnection from './database/mongodb';
 import apiConfig from 'config';
+import addApiRoutes from './addApiRoutes'
 
 /* eslint-disable no-console */
 
@@ -18,7 +19,8 @@ app.use(bodyParser.json());
 
 app.use(require('webpack-dev-middleware')(compiler, { noInfo: true, publicPath: config.output.publicPath }));
 app.use(require('webpack-hot-middleware')(compiler));
-app.use(require('./user/index.js'));
+
+addApiRoutes(app);
 
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../app/index.html'));
