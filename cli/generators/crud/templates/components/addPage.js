@@ -1,35 +1,29 @@
-import React, { PropTypes } from 'react';
-import { browserHistory } from 'react-router';
+import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import toastr from 'toastr';
+import autoBind from '../../lib/autoBind';
 import * as <%= name %>Actions from '../../actions/<%= name %>Actions';
+import * as alertActions from '../../actions/alertActions';
+import { alertMessage } from '../../helpers';
 import <%= ucName %>Form from './<%= ucName %>Form';
 
-class <%= ucName %>AddPage extends React.Component {
+class <%= ucName %>AddPage extends Component {
   constructor(props, context) {
     super(props, context);
 
-    this.state = {
-      <%= name %>: Object.assign({}, props.<%= name %>),
-      saving: false
-    };
+    autoBind(this, {
+      bindOnly: ['handleSave']
+    });
+  }
 
-    this.handleSave = this.handleSave.bind(this);
+  componentWillUpdate(nextProps) {
+    if (nextProps.alert !== this.props.alert) {
+      alertMessage(nextProps.alert);
+    }
   }
 
   handleSave(<%= name %>) {
-    this.setState({ saving: true });
-    this.props.actions.create<%= ucName %>(<%= name %>)
-      .then(() => {
-        this.setState({ saving: false });
-        toastr.success('<%= ucName %> created successfully');
-        browserHistory.push('/app/<%= pluralizedName %>');
-      })
-      .catch(error => {
-        this.setState({ saving: false });
-        toastr.error(error.description);
-      });
+    this.props.actions.create<%= ucName %>(<%= name %>);
   }
 
   render() {
@@ -38,8 +32,8 @@ class <%= ucName %>AddPage extends React.Component {
         <h1>Add <%= ucName %></h1>
         <<%= ucName %>Form
           onSave={this.handleSave}
-          saving={this.state.saving}
-          <%= name %>={this.state.<%= name %>}
+          saving={this.props.saving<%= ucName %>}
+          <%= name %>={this.props.<%= name %>}
         />
       </div>
     );
@@ -48,6 +42,8 @@ class <%= ucName %>AddPage extends React.Component {
 
 <%= ucName %>AddPage.propTypes = {
   actions: PropTypes.object.isRequired,
+  alert: PropTypes.object,
+  saving<%= ucName %>: PropTypes.bool,
   <%= name %>: PropTypes.object
 };
 
@@ -58,14 +54,16 @@ function mapStatesToProps(state, ownProps) {
   };
 
   return {
-    state: state,
+    state: state.reducers,
+    alert: state.reducers.alert,
+    saving<%= ucName %>: state.reducers.saving<%= ucName %>,
     <%= name %>: <%= name %>
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(<%= name %>Actions, dispatch)
+    actions: bindActionCreators({...<%= name %>Actions, ...alertActions}, dispatch)
   };
 }
 

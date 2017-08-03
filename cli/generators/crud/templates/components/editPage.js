@@ -1,48 +1,36 @@
-import React, { PropTypes } from 'react';
-import { browserHistory } from 'react-router';
+import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import toastr from 'toastr';
+import autoBind from '../../lib/autoBind';
 import * as <%= name %>Actions from '../../actions/<%= name %>Actions';
+import * as alertActions from '../../actions/alertActions';
+import { alertMessage } from '../../helpers';
 import <%= ucName %>Form from './<%= ucName %>Form';
 
-class <%= ucName %>EditPage extends React.Component {
+class <%= ucName %>EditPage extends Component {
   constructor(props, context) {
     super(props, context);
 
-    this.state = {
-      <%= name %>: Object.assign({}, props.<%= name %>),
-      saving: false
-    };
+    autoBind(this, {
+      bindOnly: ['handleSave']
+    });
 
-    this.handleSave = this.handleSave.bind(this);
-
-    // TODO: Avoid when is already on the state?
     props.actions.get<%= ucName %>(props.params.id);
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({ <%= name %>: Object.assign({}, nextProps.<%= name %>) });
+  componentWillUpdate(nextProps) {
+    if (nextProps.alert !== this.props.alert) {
+      alertMessage(nextProps.alert);
+    }
   }
 
   handleSave(<%= name %>) {
-    this.setState({ saving: true });
-
     let data = {
-      id: this.state.<%= name %>.id,
+      id: this.props.<%= name %>.id,
       name: <%= name %>.name
     };
 
-    this.props.actions.update<%= ucName %>(data)
-      .then(() => {
-        this.setState({ saving: false });
-        toastr.success('<%= ucName %> updated successfully');
-        browserHistory.push('/app/<%= pluralizedName %>');
-      })
-      .catch(error => {
-        this.setState({ saving: false });
-        toastr.error(error.description);
-      });
+    this.props.actions.update<%= ucName %>(data);
   }
 
   render() {
@@ -51,8 +39,8 @@ class <%= ucName %>EditPage extends React.Component {
         <h1>Edit <%= ucName %></h1>
         <<%= ucName %>Form
           onSave={this.handleSave}
-          saving={this.state.saving}
-          <%= name %>={this.state.<%= name %>}
+          saving={this.props.saving<%= ucName %>}
+          <%= name %>={this.props.<%= name %>}
         />
       </div>
     );
@@ -61,20 +49,24 @@ class <%= ucName %>EditPage extends React.Component {
 
 <%= ucName %>EditPage.propTypes = {
   actions: PropTypes.object.isRequired,
+  alert: PropTypes.object,
+  saving<%= ucName %>: PropTypes.bool,
   <%= name %>: PropTypes.object,
   params: PropTypes.object
 };
 
 function mapStatesToProps(state, ownProps) {
   return {
-    state: state,
-    <%= name %>: state.<%= name %>
+    state: state.reducers,
+    alert: state.reducers.alert,
+    saving<%= ucName %>: state.reducers.saving<%= ucName %>,
+    <%= name %>: state.reducers.<%= name %>
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(<%= name %>Actions, dispatch)
+    actions: bindActionCreators({...<%= name %>Actions, ...alertActions}, dispatch)
   };
 }
 

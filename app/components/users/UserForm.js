@@ -1,9 +1,10 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import Formsy from 'formsy-react';
+import autoBind from '../../lib/autoBind';
 import { Input, Textarea } from 'formsy-react-components';
 
-class UserForm extends React.Component {
+class UserForm extends Component {
   constructor(props, context) {
     super(props, context);
 
@@ -11,18 +12,21 @@ class UserForm extends React.Component {
       canSubmit: false
     };
 
-    this.enableButton = this.enableButton.bind(this);
-    this.disableButton = this.disableButton.bind(this);
-    this.submit = this.submit.bind(this);
-    this.resetForm = this.resetForm.bind(this);
+    autoBind(this, {
+      bindOnly: ['enableButton', 'disableButton',  'submit', 'resetForm']
+    });
   }
 
   enableButton() {
-    this.setState({ canSubmit: true });
+    this.setState({
+      canSubmit: true
+    });
   }
 
   disableButton() {
-    this.setState({ canSubmit: false });
+    this.setState({
+      canSubmit: false
+    });
   }
 
   submit(model) {

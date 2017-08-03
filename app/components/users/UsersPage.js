@@ -1,59 +1,43 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
-import toastr from 'toastr';
+import autoBind from '../../lib/autoBind';
 import * as userActions from '../../actions/userActions';
+import * as modalActions from '../../actions/modalActions';
+import * as alertActions from '../../actions/alertActions';
 import UserList from './UserList';
 import Modal from '../common/Modal';
 import ConfirmModal from '../common/ConfirmModal';
+import { alertMessage } from '../../helpers';
 
-export class UsersPage extends React.Component {
+export class UsersPage extends Component {
   constructor(props, context) {
     super(props, context);
 
-    this.state = {
-      user: Object.assign({}, props.user)
-    };
-
-    this.onClickDetail = this.onClickDetail.bind(this);
-    this.onClickDelete = this.onClickDelete.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
+    autoBind(this, {
+      bindOnly: ['onClickDetail', 'onClickDelete', 'handleDelete']
+    });
 
     props.actions.loadUsers();
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      user: nextProps.user
-    });
+  componentWillUpdate(nextProps) {
+    if (nextProps.alert !== this.props.alert) {
+      alertMessage(nextProps.alert);
+    }
   }
 
   onClickDetail(userId) {
-    this.props.actions.getUser(userId)
-      .then(() => {
-        this.modal.open();
-      })
-      .catch(() => {
-        toastr.error('The selected user does not exist.');
-      });
+    this.props.actions.getUser(userId, true);
   }
 
   onClickDelete(userId) {
-    this.setState({
-      userToDelete: userId
-    });
-    this.userDeleteModal.open();
+    this.props.actions.requestUserId(userId);
   }
 
   handleDelete() {
-    this.props.actions.deleteUser(this.state.userToDelete)
-      .then(() => {
-        toastr.success('User removed');
-      })
-      .catch(error => {
-        toastr.error(error);
-      });
+    this.props.actions.deleteUser(this.props.userToDelete);
   }
 
   render() {
@@ -66,14 +50,20 @@ export class UsersPage extends React.Component {
           onClickDetail={this.onClickDetail}
           onClickDelete={this.onClickDelete} />
         <Modal
+          id="userDetailsModal"
           title="User Info"
-          body={this.state.user.createdAt}
-          ref={(child) => { this.modal = child; }} />
+          body={this.props.user.createdAt}
+          modal={this.props.modal}
+          close={this.props.actions.hideModal}
+        />
         <ConfirmModal
+          id="userDeleteModal"
           title="Delete User"
           body="Are you sure you want to delete this user?"
-          ref={(child) => { this.userDeleteModal = child; }}
-          confirm={this.handleDelete} />
+          modal={this.props.modal}
+          close={this.props.actions.hideModal}
+          confirm={this.handleDelete}
+        />
       </div>
     );
   }
@@ -81,21 +71,27 @@ export class UsersPage extends React.Component {
 
 UsersPage.propTypes = {
   actions: PropTypes.object,
+  alert: PropTypes.object,
+  modal: PropTypes.object,
+  userToDelete: PropTypes.string,
   users: PropTypes.array.isRequired,
   user: PropTypes.object.isRequired
 };
 
 function mapStatesToProps(state, ownProps) {
   return {
-    state: state,
-    users: state.users.users,
-    user: state.user
+    state: state.reducers,
+    alert: state.reducers.alert,
+    modal: state.reducers.modal,
+    userToDelete: state.reducers.userToDelete,
+    users: state.reducers.users.users,
+    user: state.reducers.user
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(userActions, dispatch)
+    actions: bindActionCreators({...userActions, ...modalActions, ...alertActions}, dispatch)
   };
 }
 

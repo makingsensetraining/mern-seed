@@ -15,7 +15,7 @@ module.exports = class extends Generator {
       
       let currentTree = acorn.parse(generator.fs.read(destinationPath), {sourceType: 'module' });
       let templateTree = acorn.parse(renderedTemplate, {sourceType: 'module' });
-
+      
       templateTree.body.forEach(node => {
         if (!generator.nodeExistsInScope(node, currentTree)) {
           currentTree.body.push(node);
@@ -35,6 +35,14 @@ module.exports = class extends Generator {
       {
         name: data.name,
         default: '{}'
+      },
+      {
+        name: `saving${data.ucName}`,
+        default: 'false'
+      },
+      {
+        name: `${data.name}ToDelete`,
+        default: "''"
       }
     ];
 
@@ -65,7 +73,7 @@ module.exports = class extends Generator {
       generator.extendObject(rootReducersArgument, reducer.name);
       generator.extendObject(initialStateDefaults, reducer.name, reducer.default);
     });
-
+    
     this.fs.write(indexDestinationPath, escodegen.generate(currentIndexTree));
     this.fs.write(initialStateDestinationPath, escodegen.generate(currentInitialStateTree));
   }
@@ -102,7 +110,7 @@ module.exports = class extends Generator {
       let newLineNode = acorn
         .parse('<t>\n      </t>', { plugins: { jsx:true } })
         .body[0].expression.children[0];
-
+      
       newRoutes.children.forEach(newRoute => {
         if (newRoute.type === 'JSXElement' && !generator.nodeExistsInScope(newRoute, currentRoutes)) {
           currentRoutes.children.splice(++insertRouteAt, 0, newLineNode);
@@ -132,7 +140,7 @@ module.exports = class extends Generator {
   }
 
   nodeExistsInScope(node, context) {
-    
+
     let nodeSrc = escodegen.generate(node);
     let contextSrc = escodegen.generate(context);
 
