@@ -12,10 +12,10 @@ module.exports = class extends Generator {
     let generator = this;
     ejs.renderFile(templatePath, data, (err, renderedTemplate) => {
       if(err) throw err;
-
+      
       let currentTree = acorn.parse(generator.fs.read(destinationPath), {sourceType: 'module' });
       let templateTree = acorn.parse(renderedTemplate, {sourceType: 'module' });
-
+      
       templateTree.body.forEach(node => {
         if (!generator.nodeExistsInScope(node, currentTree)) {
           currentTree.body.push(node);
@@ -53,12 +53,12 @@ module.exports = class extends Generator {
     let rootReducersArgument = currentIndexTree.body.find(node =>
       node.type === 'VariableDeclaration' && node.declarations[0].id.name === 'rootReducer'
     ).declarations[0].init.arguments[0];
-
+    
     let initialStateDefaults = currentInitialStateTree.body.find(node =>
       node.type === 'ExportDefaultDeclaration'
     ).declaration;
-
-    var existingImport = currentIndexTree.body.findIndex(node =>
+    
+    var existingImport = currentIndexTree.body.findIndex(node => 
       node.type === 'ImportDeclaration' && node.source.value === `./${data.name}Reducer`
     );
 
@@ -73,7 +73,7 @@ module.exports = class extends Generator {
       generator.extendObject(rootReducersArgument, reducer.name);
       generator.extendObject(initialStateDefaults, reducer.name, reducer.default);
     });
-
+    
     this.fs.write(indexDestinationPath, escodegen.generate(currentIndexTree));
     this.fs.write(initialStateDestinationPath, escodegen.generate(currentInitialStateTree));
   }
@@ -110,7 +110,7 @@ module.exports = class extends Generator {
       let newLineNode = acorn
         .parse('<t>\n      </t>', { plugins: { jsx:true } })
         .body[0].expression.children[0];
-
+      
       newRoutes.children.forEach(newRoute => {
         if (newRoute.type === 'JSXElement' && !generator.nodeExistsInScope(newRoute, currentRoutes)) {
           currentRoutes.children.splice(++insertRouteAt, 0, newLineNode);
@@ -119,14 +119,14 @@ module.exports = class extends Generator {
       });
 
       generator.fs.write(
-        destinationPath,
+        destinationPath, 
         escodegen.generate(currentTree, { format: { quotes: 'double' } })
       );
     });
   }
 
   addApiRoutes(destinationPath, data) {
-
+    
     let currentTree = acorn.parse(this.fs.read(destinationPath), { sourceType: "module" });
     let functionBody = currentTree.body.find(node => node.type === 'FunctionDeclaration').body;
     let newStatement = acorn.parse(`app.use(require('./${data.name}/index.js'))`)
@@ -148,11 +148,11 @@ module.exports = class extends Generator {
   }
 
   extendObject(objectExpression, propertyName, propertyValue) {
-
+    
     let existingProperty = objectExpression.properties.find((prop) =>
-      prop.key.name === propertyName
+          prop.key.name === propertyName
     );
-
+    
     let src = `x = {${propertyName}${propertyValue != undefined ? `: ${propertyValue}` : '' }}`;
 
     let newProperty = acorn.parse(src).body[0].expression.right.properties[0];
