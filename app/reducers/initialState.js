@@ -1,6 +1,4 @@
-const exportDefault = {
-  users: [],
-  user: {}
+export default {
+    users: [],
+    user: {}
 };
-
-export default exportDefault;

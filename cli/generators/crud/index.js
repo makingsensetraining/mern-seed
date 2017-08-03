@@ -58,6 +58,12 @@ module.exports = class extends CrudGenerator {
         this.destinationPath(`api/${name}/index.js`),
         data
       );
+
+      // Add Express API routes to server.
+      this.addApiRoutes(
+        this.destinationPath('api/addApiRoutes.js'),
+        data
+      );
     }
 
     // Actions.
@@ -120,7 +126,7 @@ module.exports = class extends CrudGenerator {
       data
     );
 
-     // Update API endpoints.
+    // Update API endpoints.
     this.appendTpl(
       this.templatePath('apiEndpoints.js'),
       this.destinationPath('app/services/apiEndpoints.js'),
@@ -131,6 +137,14 @@ module.exports = class extends CrudGenerator {
     this.updateReducersConfiguration(
       this.destinationPath('app/reducers/index.js'), 
       this.destinationPath('app/reducers/initialState.js'), 
-      data);
+      data
+    );
+
+    // Update routes.
+    this.updateRoutes(
+      this.templatePath('routes.js'),
+      this.destinationPath('app/routes.js'),
+      data
+    );
   }
 };

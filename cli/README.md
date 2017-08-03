@@ -107,10 +107,12 @@ Produces:
 
 Updates:
 
+- `addApiRoutes.js`
 - `app/actions/actionTypes.js`
 - `app/services/apiEndpoints.js`
 - `app/reducers/index.js`
 - `app/reducers/initialState.js`
+- `app/routes.js`
 
 Example with `--no-api`:
 
@@ -136,32 +138,13 @@ Updates:
 - `app/services/apiEndpoints.js`
 - `app/reducers/index.js`
 - `app/reducers/initialState.js`
+- `app/routes.js`
 
 **Pro tip**: If you want to avoid the prompt when updating existing files use the option `--force`:
 
 ```bash
 yo mern:crud Car --force
 ```
-
-But wait: that's not all. You still need to do a couple of minor changes/additions.
-
-#### api/server.js
-
-```javascript
-app.use(require('./car/index.js'));
-```
-#### app/routes.js
-
-```javascript
-import CarPage from './components/car/CarPage';
-import CarAddPage from './components/car/CarAddPage';
-import CarEditPage from './components/car/CarEditPage';
-// ...
-<Route path="/app/cars" component={CarPage} />
-<Route path="/app/cars/add" component={CarAddPage} />
-<Route path="/app/cars/:id/edit" component={CarEditPage} />
-```
-
 ## License
 
 MIT © [Making Sense](https://makingsense.com)
