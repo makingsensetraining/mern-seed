@@ -43,7 +43,7 @@
     "ux:watch": "gulp --cwd ux --gulpfile ux/gulpfile.js watch",
     "ux:build": "gulp --cwd ux --gulpfile ux/gulpfile.js build",
     "lint:watch": "npm run lint -- --watch",
-    "test": "mocha --reporter spec tests/testSetup.js \"app/**/*.test.js\"",
+    "test": "mocha --require mock-local-storage --reporter spec tests/testSetup.js \"app/**/*.test.js\"",
     "test:watch": "npm run test -- --watch"
   },
   "devDependencies": {
@@ -73,6 +73,7 @@
     "file-loader": "^0.10.1",
     "jsdom": "^9.8.3",
     "mocha": "^3.1.2",
+    "mock-local-storage": "^1.0.5",
     "nock": "^9.0.0",
     "npm-run-all": "^4.0.1",
     "open": "0.0.5",
