@@ -9,7 +9,7 @@ const dbOptions = {
   }
 };
 
-mongoose.connect(`mongodb://${dbConfig.username}:${dbConfig.password}@${dbConfig.host}/${dbConfig.dbname}`, dbOptions);
+mongoose.connect(`mongodb://${dbConfig.host}`, dbOptions);
 mongoose.Promise = global.Promise; // Plug native ES6 promises http://mongoosejs.com/docs/promises.html
 mongoose.plugin(mongooseIdPlugin); // Applies plugin to all schemas.
 
