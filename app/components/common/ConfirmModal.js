@@ -73,7 +73,7 @@ ConfirmModal.propTypes = {
   footer: PropTypes.string,
   confirm: PropTypes.func.isRequired,
   close: PropTypes.func,
-  modal: PropTypes.object.isRequired
+  modal: PropTypes.object
 };
 
 export default ConfirmModal;

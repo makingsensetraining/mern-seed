@@ -66,7 +66,7 @@ Modal.propTypes = {
   body: PropTypes.string,
   footer: PropTypes.string,
   close: PropTypes.func,
-  modal: PropTypes.object.isRequired
+  modal: PropTypes.object
 };
 
 export default Modal;
