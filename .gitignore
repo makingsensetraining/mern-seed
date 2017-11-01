@@ -9,3 +9,5 @@ dist
 # except default.json which is maintained
 !/config/default.json
 
+# Coverage directory used by tools like istanbul
+coverage

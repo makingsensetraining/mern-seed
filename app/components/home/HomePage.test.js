@@ -1,6 +1,5 @@
 import React from 'react';
-import expect from 'expect';
-import {mount, shallow} from 'enzyme';
+import {shallow} from 'enzyme';
 import HomePage from './HomePage';
 
 function setup(){

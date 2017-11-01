@@ -1,5 +1,6 @@
-import React, {PropTypes} from 'react';
-import {DropModal} from 'boron';
+import React from 'react';
+import PropTypes from 'prop-types';
+import DropModal from 'reboron/DropModal';
 import autoBind from '../../lib/autoBind';
 
 class Modal extends React.Component {

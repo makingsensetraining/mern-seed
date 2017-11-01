@@ -1,4 +1,3 @@
-import expect from 'expect';
 import { users, user } from './userReducer';
 import * as actions from '../actions/userActions';
 import * as actionTypes from '../actions/actionTypes';

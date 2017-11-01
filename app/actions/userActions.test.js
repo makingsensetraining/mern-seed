@@ -1,4 +1,3 @@
-import expect from 'expect';
 import thunk from 'redux-thunk';
 import nock from 'nock';
 import configureMockStore from 'redux-mock-store';

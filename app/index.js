@@ -11,7 +11,7 @@ import routes from './routes';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/toastr/build/toastr.min.css';
 import '../node_modules/griddle-react-bootstrap/dist/griddle-react-bootstrap.css';
-// import '../ux/dev/css/styles.css'; //ToDo: commenting MSUIX styles until fully integrated.
+import './assets/styles/styles.scss';
 
 const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);

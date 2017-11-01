@@ -1,5 +1,6 @@
-import React, { PropTypes, Component } from 'react';
-import {DropModal} from 'boron';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import DropModal from 'reboron/DropModal';
 import autoBind from '../../lib/autoBind';
 
 class ConfirmModal extends Component {

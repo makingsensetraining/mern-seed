@@ -1,5 +1,4 @@
 import React from 'react';
-import expect from 'expect';
 import {mount} from 'enzyme';
 import {UsersPage} from './UsersPage'; //Using the undecorated component (In order to be able to test the component itself without having to deal with the decorator)
 
@@ -42,6 +41,7 @@ describe('Users Page', () => {
     const wrapper = setup();
 
     expect(wrapper.find('h1').text()).toEqual('Users List'); //The h1 text should be Users List
+    expect(wrapper.find('Link').exists()).toBe(true);
     expect(wrapper.find('UserList').length).toEqual(1); //There has to be one UserList component.
     expect(wrapper.find('Modal').length).toEqual(1); //There has to be one Modal component.
     expect(wrapper.find('User').length).toEqual(2); //There has to be one User component.
